@@ -7,7 +7,7 @@
 ## 使い方
 
 下記のQRコードから友達登録してから使用して下さい。  
-![友達登録](https://qr-official.line.me/M/4SxS-oo__H.png)
+![友達登録](image/qr_code.png)
 
 声優名で話しかけるとその声優が出演するゲームを教えてくれます。  
 
