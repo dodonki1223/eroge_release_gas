@@ -39,7 +39,7 @@
 
 ## 導入方法
 
-#### Messaging APIの設定
+### Messaging APIの設定
 
 LINEのエンジニアの方が書かれている記事を參考にMessaging APIの作成を行って下さい。
 - [LINEのBot開発 超入門（前編） ゼロから応答ができるまで - Qiita](https://qiita.com/nkjm/items/38808bbc97d6927837cd)  
@@ -47,7 +47,7 @@ LINEのエンジニアの方が書かれている記事を參考にMessaging API
 LINEのアクセストークンが必要なのでメモしておいて下さい。  
 `BOT`の作成は必要ないので作成しなくて大丈夫です。`BOT`はGoogleスプレッドシートで作成します。
 
-#### BOTの作成
+### BOTの作成
 
 新規にGoogleスプレッドシートを作成。  
 [eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd)でGoogleスプレッドシートに書き込みができるように設定。  
@@ -92,7 +92,7 @@ var config = {
 - slack.gs
 - debug.gs(無くても問題ないです)
 
-#### Slack通知
+### Slack通知
 
 ![slack通知](image/sample_slack_notice.png)
 
