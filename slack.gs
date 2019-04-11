@@ -9,15 +9,18 @@ function releaseListSendMessage() {
   var attachments = (function(sheet, rows) {
     // 対象のデータを全て取得しそのデータからAttachementを作成する
     var rowsCount = rows[rows.length - 1] - 1,
-        values    = sheet.getRange(2, 1, rowsCount, 9).getValues();
+        values    = sheet.getRange(2, 1, rowsCount, maxColumnsCount).getValues();
+        
+    Logger.log(values);
+        
     return values.map(function(value) {
-      var brandName        = value[6],
-          title            = value[2],
-          introductionPage = value[5],
-          releaseDate      = Utilities.formatDate(value[1],"JST","yyyy/MM/dd"),
-          price            = value[4],
-          voiceActors      = value[8],
-          packageImage     = value[3];
+      var brandName        = value[columns.BrandName],
+          title            = value[columns.Title],
+          introductionPage = value[columns.IntroductionPage],
+          releaseDate      = Utilities.formatDate(value[columns.ReleaseDate],"JST","yyyy/MM/dd"),
+          price            = value[columns.Price],
+          voiceActors      = value[columns.VoiceActor],
+          packageImage     = value[columns.PackageImage];
       return createAttachement(brandName, title, introductionPage, releaseDate, price, voiceActors, packageImage);
     });
   }(sheet, foundRows));
@@ -29,9 +32,9 @@ function releaseListSendMessage() {
       
   // Slackにメッセージを送信する　
   sendMessage(message, 
-              config['SlackPostChannel'], 
+              config.SlackPostChannel, 
               '発売リストくん', 
-              config['SlackPostUserIcon'], 
+              config.SlackPostUserIcon, 
               attachments);
 }
 
@@ -84,5 +87,5 @@ function sendMessage(message, channel, username, iconUrl, attachments) {
   };
   
   // Slackにメッセージを送信
-  var response = UrlFetchApp.fetch(config['SlackWebHookUrl'], option);
+  var response = UrlFetchApp.fetch(config.SlackWebHookUrl, option);
 }

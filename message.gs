@@ -6,8 +6,8 @@
  * @return {String} 声優名
  */
 function getVoiceActorName(message) {
-  replaceMessage = message.replace(targetMonth['LastMonthString'], '');
-  return replaceMessage.replace(targetMonth['NextMonthString'], '');
+  replaceMessage = message.replace(targetMonth.LastMonthString, '');
+  return replaceMessage.replace(targetMonth.NextMonthString, '');
 }
 
 /**
@@ -17,15 +17,18 @@ function getVoiceActorName(message) {
  * @return {String} 対象のゲームのPostするメッセージ
  */
 function postMessage(sheet, row) {
+  // 対象の行データを全て取得する
+  var rowValues        = sheet.getRange(row, 1, 1, maxColumnsCount).getValues()[0];
+  
   // メッセージに表示するための情報を取得します
-  var releaseDate      = Utilities.formatDate(sheet.getRange('B' + row).getValue(),"JST","yyyy/MM/dd"),
-      title            = sheet.getRange('C' + row).getValue(),
-      price            = sheet.getRange('E' + row).getValue(),
-      introductionPage = sheet.getRange('F' + row).getValue(),
-      brandPage        = sheet.getRange('H' + row).getValue();
+  var releaseDate      = Utilities.formatDate(rowValues[columns.ReleaseDate], "JST", "yyyy/MM/dd"),
+      title            = rowValues[columns.Title],
+      price            = rowValues[columns.Price],
+      introductionPage = rowValues[columns.IntroductionPage],
+      brandPage        = rowValues[columns.BrandPage];
 
   var message = releaseDate + '\n' +
-    　　　　　　　　　　       title + '\n' +
+                title + '\n' +
                 price + '\n' +
                 introductionPage + '\n' +
                 '\n' +
@@ -59,12 +62,12 @@ function listPagePostMessage(year, month) {
 function notExistPostMessage(month, voiceActorName) {
   var message = '';
   
-  if (month == targetMonth['LastMonth']) {
-    message = targetMonth['LastMonthString'] + voiceActorName;
-  } else if (month == targetMonth['NextMonth']) {
-    message = targetMonth['NextMonthString'] + voiceActorName;
+  if (month == targetMonth.LastMonth) {
+    message = targetMonth.LastMonthString + voiceActorName;
+  } else if (month == targetMonth.NextMonth) {
+    message = targetMonth.NextMonthString + voiceActorName;
   } else {
-    message = targetMonth['CurrentMonthString'] + voiceActorName;
+    message = targetMonth.CurrentMonthString + voiceActorName;
   }
   
   message = message + 'はゲームに出演する予定はありません'

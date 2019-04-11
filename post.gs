@@ -51,7 +51,7 @@ function createRequest(replyToken, callback) {
   return {
     'headers': {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ' + config['LineAccessToken'],
+      'Authorization': 'Bearer ' + config.LineAccessToken,
     },
     'method': 'post',
     'payload': JSON.stringify({
@@ -90,12 +90,12 @@ function doPost(e) {
   if (voiceActorName == 'リスト') {
     var year  = yearMonth.slice(0,4),
         month = yearMonth.slice(4);
-    UrlFetchApp.fetch(config['LinePostUrl'], createRequest(replyToken, createListPagePostMessage(year, month)));
+    UrlFetchApp.fetch(config.LinePostUrl, createRequest(replyToken, createListPagePostMessage(year, month)));
   } else {
     if (foundRows.length == 0) {
-      UrlFetchApp.fetch(config['LinePostUrl'], createRequest(replyToken, createNotExistsPostMessage(targetMonth, voiceActorName)));
+      UrlFetchApp.fetch(config.LinePostUrl, createRequest(replyToken, createNotExistsPostMessage(targetMonth, voiceActorName)));
     } else {
-      UrlFetchApp.fetch(config['LinePostUrl'], createRequest(replyToken, createPostMessages(sheet, foundRows)));
+      UrlFetchApp.fetch(config.LinePostUrl, createRequest(replyToken, createPostMessages(sheet, foundRows)));
     }
   }
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);

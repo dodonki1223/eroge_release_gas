@@ -1,11 +1,11 @@
 // 検索する対象月の値定数
 var targetMonth = {
-  'LastMonth' : -1,
-  'NextMonth' : 1,
-  'CurrentMonth' : 0,
-  'LastMonthString' : '先月の',
-  'NextMonthString' : '来月の',
-  'CurrentMonthString' : '今月の'
+  LastMonth          : -1,
+  NextMonth          : 1,
+  CurrentMonth       : 0,
+  LastMonthString    : '先月の',
+  NextMonthString    : '来月の',
+  CurrentMonthString : '今月の'
 }
 
 /**
@@ -15,12 +15,12 @@ var targetMonth = {
  * @return {Number} 月情報（-1,0,1）を返す
  */
 function getTargetMonth(message) {
-  if (message.indexOf(targetMonth['LastMonthString']) != -1) {
-    return targetMonth['LastMonth']
-  } else if (message.indexOf(targetMonth['NextMonthString']) != -1) {
-    return targetMonth['NextMonth'];
+  if (message.indexOf(targetMonth.LastMonthString) != -1) {
+    return targetMonth.LastMonth
+  } else if (message.indexOf(targetMonth.NextMonthString) != -1) {
+    return targetMonth.NextMonth;
   } else {
-    return targetMonth['CurrentMonth'];
+    return targetMonth.CurrentMonth;
   }
 }
 

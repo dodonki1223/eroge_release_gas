@@ -1,3 +1,19 @@
+// Googleスプレッドシートのカラム定数オブジェクト
+var columns = {
+  Id              : 0,
+  ReleaseDate     : 1,
+  Title           : 2,
+  PackageImage    : 3,
+  Price           : 4,
+  IntroductionPage: 5,
+  BrandName       : 6,
+  BrandPage       : 7,
+  VoiceActor      : 8,
+};
+
+// Googleスプレッドシートのカラム数
+var maxColumnsCount = Object.keys(columns).length;
+
 /**
  * シート名からシートを取得する
  * @param {String} [sheetName] - シート名
