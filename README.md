@@ -6,7 +6,10 @@
 
 ## 使い方
 
-下記のQRコードから友達登録してから使用して下さい。  
+友だち追加ボタンをクリックするかQRコードから友達追加をして下さい。  
+
+<a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a>
+
 ![友達登録](image/qr_code.png)
 
 声優名で話しかけるとその声優が出演するゲームを教えてくれます。  
@@ -102,3 +105,15 @@ Googleスプレッドシートに書き込んだ内容をSlackに通知させる
 ![トリガーボタン](image/sample_trigger_button.png)  
 
 ![トリガーボタン](image/sample_trigger_page.png)
+
+## API制限について
+
+下記のURLを参照すること
+
+### LINE API制限について
+
+- [Messaging APIリファレンス](https://developers.line.biz/ja/reference/messaging-api/)
+
+### GoogleスプレッドシートAPIについて
+
+- [Google Apps Script ドキュメント](https://developers.google.com/apps-script/guides/services/quotas)
