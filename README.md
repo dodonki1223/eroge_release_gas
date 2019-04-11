@@ -70,11 +70,11 @@ Googleスプレッドシートからスクリプトエディタを開きます�
 // SlackPostChannel ：Slackに投稿するチャンネルID
 // SlackPostUserIcon：Slackに投稿するユーザーのアイコンURL
 var config = {
-  'LineAccessToken'  : 'Line Access Token',
-  'LinePostUrl'      : 'https://api.line.me/v2/bot/message/reply',
-  'SlackWebHookUrl'  : 'Slack Web Hook URL',
-  'SlackPostChannel' : 'Slack Channel',
-  'SlackPostUserIcon': 'Icon URL'
+  LineAccessToken  : 'Line Access Token',
+  LinePostUrl      : 'https://api.line.me/v2/bot/message/reply',
+  SlackWebHookUrl  : 'Slack Web Hook URL',
+  SlackPostChannel : 'Slack Channel',
+  SlackPostUserIcon: 'Icon URL'
 };
 ```
 
