@@ -16,7 +16,7 @@ function createPostMessages(sheet, rows) {
 }
 
 /**
- * 出演するゲームがなかった時にPostするメッセージを作成する
+ * リストページをPostするメッセージを作成する
  * @param {Number} [year] - 年
  * @param {Number} [month] - 月
  * @return {String} 出演するゲームがなかった時のPostするメッセージ

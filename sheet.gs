@@ -57,8 +57,11 @@ function　getRowsByVoiceActor(sheet, voiceActorName) {
       range     = sheet.getRange(searchRangeArea),
       foundRows = [];
 
+  // Rangeのスタートが２行目のため、Rangeの行数＋１する
+  var searchMaxRow = range.getNumRows() + 1;
+
   // 声優名列から対象の声優が出演しているか検索し結果を配列にセット
-  for(var row = startRow; row <= range.getNumRows(); row++) {
+  for(var row = startRow; row <= searchMaxRow; row++) {
     cellValue = sheet.getRange("I" + row).getValue();
     if (cellValue.indexOf(voiceActorName) != -1) 
       foundRows.push(row);
