@@ -8,9 +8,8 @@
 
 友だち追加ボタンをクリックするかQRコードから友達追加をして下さい。  
 
-<a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a>
-
-![友達登録](image/qr_code.png)
+| <a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a> | ![qr_code.png](image/qr_code.png) |
+|:---:|:---:|
 
 声優名で話しかけるとその声優が出演するゲームを教えてくれます。  
 
@@ -35,6 +34,8 @@
 サンプル画像は2019年4月に実行したものになります。
 
 ## 仕組み
+
+![環境図](image/environment.jpg)
 
 [eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd)を使用し、[げっちゅ屋](http://www.getchu.com/top.html?gc=gc)の[発売日リスト](http://www.getchu.com/all/price.html?genre=pc_soft&year=2019&month=3&gage=&gall=all)ページをスクレイピングした結果をGoogleスプレッドシートに書き込み、LINE BOTからの入力をGoogleスプレッドシートで受け取り、受け取った内容を元にGoogleスプレッドシート内を検索し、見つかった内容をLINE BOTに返す。
 
@@ -104,7 +105,11 @@ Googleスプレッドシートに書き込んだ内容をSlackに通知させる
 
 ![トリガーボタン](image/sample_trigger_button.png)  
 
-![トリガーボタン](image/sample_trigger_page.png)
+トリガー設定画面
+
+![トリガー設定画面](image/sample_trigger_setting.png)
+
+![トリガー設定一覧画面](image/sample_trigger_page.png)
 
 ## API制限について
 
