@@ -11,6 +11,17 @@ function getVoiceActorName(message) {
 }
 
 /**
+ * リストページのURLを作成する
+ * 年と月情報からリストページのURLを作成する
+ * @param {Number} [year] - 年
+ * @param {Number} [month] - 月
+ * @return {String} リストページのURL
+ */
+function buildListPageUrl(year, month) {
+  return 'http://www.getchu.com/all/price.html?genre=pc_soft&year=' + year + '&month=' + month + '&gage=&gall=all';
+}
+
+/**
  * Postするメッセージを作成する
  * @param {Sheet} [sheet] - シートObject
  * @param {Number} [row] - 対象のデータ行
@@ -46,10 +57,7 @@ function postMessage(sheet, row) {
  * @return {String} 発売リストページ情報をPostするメッセージ
  */
 function listPagePostMessage(year, month) {
-  var message = year + '年' + month + '月の発売リストページです\n' + 
-               'http://www.getchu.com/all/price.html?genre=pc_soft&year=' + year + 
-               '&month=' + month + 
-               '&gage=&gall=all';
+  var message = year + '年' + month + '月の発売リストページです\n' + buildListPageUrl(year, month);
   return message;
 }
 
