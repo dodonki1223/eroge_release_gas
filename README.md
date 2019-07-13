@@ -68,23 +68,15 @@ Googleスプレッドシートからスクリプトエディタを開きます�
 // LineAccessToken  ：LINE developersのメッセージ送受信設定に記載のアクセストークン
 // LinePostUrl      ：LINE Messaging APIのURL
 // SlackWebHookUrl  ：SlackにPostするURL
-// SlackPostChannel ：Slackに投稿するチャンネルID
-// SlackPostUserIcon：Slackに投稿するユーザーのアイコンURL
 var config = {
   LineAccessToken  : 'Line Access Token',
   LinePostUrl      : 'https://api.line.me/v2/bot/message/reply',
-  SlackWebHookUrl  : 'Slack Web Hook URL',
-  SlackPostChannel : 'Slack Channel',
-  SlackPostUserIcon: 'Icon URL'
+  SlackWebHookUrl  : 'Slack Web Hook URL'
 };
 ```
 
 - LineAccessToken
 - SlackWebHookUrl
-    - Slack通知を使用する人は記述して下さい
-- SlackPostChannel
-    - Slack通知を使用する人は記述して下さい
-- SlackPostUserIcon
     - Slack通知を使用する人は記述して下さい
 
 このリポジトリの内容をスクリプトエディタに反映して下さい。下記ファイルを作成すること。  
@@ -102,6 +94,38 @@ var config = {
 
 Googleスプレッドシートに書き込んだ内容をSlackに通知させることができます。  
 スクリプトエディタからトリガーを設定することで今月発売するリストの内容をSlackに通知させることができます。
+
+#### 通知ようのアプリをSlackに追加する
+
+まずは通知させるための[Slack App](https://api.slack.com/apps)を作成します。  
+[Slack App](https://api.slack.com/apps)リンクをクリックしてページに遷移して下さい。
+
+![SlackAppページ](image/slack_api_app_page.png)
+
+`Create New App`をクリックします。  
+
+![SlackAppCreate](image/slack_api_app_create.png)
+
+`App Name`,`Development Slack Warkspace`を記述して`Create App`をクリックします。
+
+![SlackWebhookBotton](image/slack_webhook_button.png)
+
+`Incoming Webhooks`をクリックします。  
+
+![SlackWebhookSetting](image/slack_webhook_setting.png)
+
+`Off→On`に変更し、`Add New Webhook to Workspace`をクリックします。
+
+![SlackWebhookChannelSetting](image/slack_webhook_channel_setting.png)
+
+`投稿先`を設定してインストールします。
+
+![SlackWebhookUrl](image/slack_webhook_url.png)
+
+`copy`をクリックすることでWebhook用のURLをコピーできます。  
+コピーしたURLを`config.gs`の`SlackWebHookUrl`に設定してください。  
+
+#### Slackに定期通知させるためトリガーを設定する
 
 ![トリガーボタン](image/sample_trigger_button.png)  
 
