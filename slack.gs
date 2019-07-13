@@ -143,4 +143,5 @@ function sendMessage(message, blocks) {
   
   // Slackにメッセージを送信
   var response = UrlFetchApp.fetch(config.SlackWebHookUrl, option);
+  Logger.log(response);
 }
