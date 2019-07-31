@@ -3,6 +3,6 @@
 // SlackWebHookUrl  ：SlackにPostするURL
 var config = {
   LineAccessToken  : 'Line Access Token',
-  LinePostUrl      : 'Line Post URL',
+  LinePostUrl      : 'https://api.line.me/v2/bot/message/reply',
   SlackWebHookUrl  : 'Slack Web Hook URL'
 };
