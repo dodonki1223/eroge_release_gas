@@ -15,8 +15,10 @@ function releaseListSendMessage() {
   var blocks = buildBlocks(sheet, foundRows, message);
 
   // Slackにメッセージを送信する
-  var gameSectionCount = 3,
-      sendCount        = 16;
+  // var gameSectionCount = 3,
+  //     sendCount        = 16;
+  var gameSectionCount = 2,
+      sendCount        = 30;
       additionValue    = gameSectionCount * sendCount;
   var releaseListTitle = buildTitleSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
   sendMessage(message, [releaseListTitle]);
@@ -118,7 +120,9 @@ function buildBlocks(sheet, rows) {
     var gameInfoText = releaseDate + '\n' + price + '\n' + voiceActors;
     blocks.push(buildTitleSection(titleText));
     blocks.push(buildGameInfoSection(gameInfoText));
-    blocks.push(buildImageSection(packageImage, title));
+    // 画像を展開すると「Forbidden」になるためSlackでエラーになってしまうのでURLだけリンクを貼るようにする
+    // blocks.push(buildImageSection(packageImage, title));
+    blocks.push(buildTitleSection(packageImage));
   });
   return blocks;
 }
