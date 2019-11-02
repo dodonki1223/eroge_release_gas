@@ -18,7 +18,7 @@ function releaseListSendMessage() {
   // var gameSectionCount = 3,
   //     sendCount        = 16;
   var gameSectionCount = 2,
-      sendCount        = 30;
+      sendCount        = 25;
       additionValue    = gameSectionCount * sendCount;
   var releaseListTitle = buildTitleSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
   sendMessage(message, [releaseListTitle]);
@@ -120,9 +120,10 @@ function buildBlocks(sheet, rows) {
     var gameInfoText = releaseDate + '\n' + price + '\n' + voiceActors;
     blocks.push(buildTitleSection(titleText));
     blocks.push(buildGameInfoSection(gameInfoText));
-    // 画像を展開すると「Forbidden」になるためSlackでエラーになってしまうのでURLだけリンクを貼るようにする
+    // リファラーがげっちゅ屋でないと「Forbidden」になるように設定されているっぽいので
+    // 直リンクができないようになったので画像のリンクを貼る処理はなくす
     // blocks.push(buildImageSection(packageImage, title));
-    blocks.push(buildTitleSection(packageImage));
+    // blocks.push(buildTitleSection(packageImage));
   });
   return blocks;
 }
