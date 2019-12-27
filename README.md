@@ -60,7 +60,8 @@ Googleスプレッドシートからスクリプトエディタを開きます�
 
 ![スクリプトエディタ開き方](image/sample_open_script_editor.png)
 
-スクリプトエディタが開いたらBOT用の設定ファイル（config.gs）を作成し、下記の内容を記述して下さい
+スクリプトエディタが開いたらBOT用の設定ファイル（config.gs）を作成し、下記の内容を記述して下さい  
+`_config.gs` を `config.gs` にリネームしてください
 
 ![config.gs](image/config_setting.png)
 
