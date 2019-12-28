@@ -1,18 +1,21 @@
-// Googleスプレッドシートのカラム定数オブジェクト
-var columns = {
-  Id              : 0,
-  ReleaseDate     : 1,
-  Title           : 2,
-  PackageImage    : 3,
-  Price           : 4,
-  IntroductionPage: 5,
-  BrandName       : 6,
-  BrandPage       : 7,
-  VoiceActor      : 8,
+// Googleスプレッドシートのカラム用Object
+var Columns = {
+  Id              : 1,
+  ReleaseDate     : 2,
+  Title           : 3,
+  PackageImage    : 4,
+  Price           : 5,
+  IntroductionPage: 6,
+  BrandName       : 7,
+  BrandPage       : 8,
+  VoiceActor      : 9,
+  ArrayValue: function(value) {
+    return value -1;
+  }
 };
 
 // Googleスプレッドシートのカラム数
-var maxColumnsCount = Object.keys(columns).length;
+var maxColumnsCount = Object.keys(Columns).length;
 
 /**
  * シート名からシートを取得する
@@ -68,7 +71,6 @@ function　getRowsByVoiceActor(sheet, voiceActorName) {
   }
 
   // Logger.log(voiceActorName + '：' + foundRows);
-
   // APIの制限で５件までしか送信できないため、最初から５件のみを取り出す
   return foundRows.slice(0, 5);
 }

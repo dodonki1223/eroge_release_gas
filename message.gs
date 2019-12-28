@@ -6,8 +6,8 @@
  * @return {String} 声優名
  */
 function getVoiceActorName(message) {
-  replaceMessage = message.replace(targetMonth.LastMonthString, '');
-  return replaceMessage.replace(targetMonth.NextMonthString, '');
+  replaceMessage = message.replace(TargetMonth.LastMonthString, '');
+  return replaceMessage.replace(TargetMonth.NextMonthString, '');
 }
 
 /**
@@ -32,11 +32,11 @@ function postMessage(sheet, row) {
   var rowValues        = sheet.getRange(row, 1, 1, maxColumnsCount).getValues()[0];
   
   // メッセージに表示するための情報を取得します
-  var releaseDate      = Utilities.formatDate(rowValues[columns.ReleaseDate], "JST", "yyyy/MM/dd"),
-      title            = rowValues[columns.Title],
-      price            = rowValues[columns.Price],
-      introductionPage = rowValues[columns.IntroductionPage],
-      brandPage        = rowValues[columns.BrandPage];
+  var releaseDate      = Utilities.formatDate(rowValues[Columns.ArrayValue(Columns.ReleaseDate)], "JST", "yyyy/MM/dd"),
+      title            = rowValues[Columns.ArrayValue(Columns.Title)],
+      price            = rowValues[Columns.ArrayValue(Columns.Price)],
+      introductionPage = rowValues[Columns.ArrayValue(Columns.IntroductionPage)],
+      brandPage        = rowValues[Columns.ArrayValue(Columns.BrandPage)];
 
   var message = releaseDate + '\n' +
                 title + '\n' +
@@ -70,12 +70,12 @@ function listPagePostMessage(year, month) {
 function notExistPostMessage(month, voiceActorName) {
   var message = '';
   
-  if (month == targetMonth.LastMonth) {
-    message = targetMonth.LastMonthString + voiceActorName;
-  } else if (month == targetMonth.NextMonth) {
-    message = targetMonth.NextMonthString + voiceActorName;
+  if (month == TargetMonth.LastMonth) {
+    message = TargetMonth.LastMonthString + voiceActorName;
+  } else if (month == TargetMonth.NextMonth) {
+    message = TargetMonth.NextMonthString + voiceActorName;
   } else {
-    message = targetMonth.CurrentMonthString + voiceActorName;
+    message = TargetMonth.CurrentMonthString + voiceActorName;
   }
   
   message = message + 'はゲームに出演する予定はありません'

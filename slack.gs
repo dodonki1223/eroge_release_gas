@@ -107,14 +107,14 @@ function buildBlocks(sheet, rows) {
       blocks    = [];
   // ゲーム情報からメッセージを作成する
   values.forEach(function(value) {
-    var brandName        = value[columns.BrandName],
-        barandPage       = value[columns.BrandPage],
-        title            = value[columns.Title],
-        introductionPage = value[columns.IntroductionPage],
-        releaseDate      = Utilities.formatDate(value[columns.ReleaseDate],"JST","yyyy/MM/dd"),
-        price            = value[columns.Price],
-        voiceActors      = value[columns.VoiceActor],
-        packageImage     = value[columns.PackageImage];
+    var brandName        = value[Columns.ArrayValue(Columns.BrandName)],
+        barandPage       = value[Columns.ArrayValue(Columns.BrandPage)],
+        title            = value[Columns.ArrayValue(Columns.Title)],
+        introductionPage = value[Columns.ArrayValue(Columns.IntroductionPage)],
+        releaseDate      = Utilities.formatDate(value[Columns.ArrayValue(Columns.ReleaseDate)],"JST","yyyy/MM/dd"),
+        price            = value[Columns.ArrayValue(Columns.Price)],
+        voiceActors      = value[Columns.ArrayValue(Columns.VoiceActor)],
+        packageImage     = value[Columns.ArrayValue(Columns.PackageImage)];
     var titleText = buildBoldText(buildLinkText(title, introductionPage)) + 
                     ' (' + buildBoldText(buildLinkText(brandName, barandPage)) + ')';
     var gameInfoText = releaseDate + '\n' + price + '\n' + voiceActors;
@@ -147,6 +147,6 @@ function sendMessage(message, blocks) {
   };
   
   // Slackにメッセージを送信
-  var response = UrlFetchApp.fetch(config.SlackWebHookUrl, option);
+  var response = UrlFetchApp.fetch(Config.SlackWebHookUrl, option);
   Logger.log(response);
 }
