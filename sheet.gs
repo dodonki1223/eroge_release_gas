@@ -74,3 +74,41 @@ function　getRowsByVoiceActor(sheet, voiceActorName) {
   // APIの制限で５件までしか送信できないため、最初から５件のみを取り出す
   return foundRows.slice(0, 5);
 }
+
+/**
+ * シート内の全データを取得する
+ * @param {String} [sheetName] - シート名
+ * @return {Array} シート内の全データ
+ */
+function getAllData(sheetName) {
+  var sheet = getSheet(sheetName);
+  var range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
+
+  return range.getValues();
+}
+
+/**
+ * シート内のブランドデータを取得する
+ * @param {String} [sheetName] - シート名
+ * @return {Array} ブランドデータ
+ */
+function getBrandData(sheetName) {
+  var sheet = getSheet(sheetName);
+
+  var brandRange = sheet.getRange("G2:H" + sheet.getLastRow());
+  var brandData = brandRange.getValues();
+  var brandDataUniques = [];  
+
+  var itemsFound = {};
+  for(var i = 0, l = brandData.length; i < l; i++) {
+    // 配列を文字列に変換しすでに存在しているものだったら次の要素へ
+    var stringified = JSON.stringify(brandData[i]);
+    if(itemsFound[stringified]) continue;
+
+    // ブランドデータを追加する（重複はいれない）
+    brandDataUniques.push(brandData[i]);
+    itemsFound[stringified] = true;
+  }
+
+  return brandDataUniques;
+}
