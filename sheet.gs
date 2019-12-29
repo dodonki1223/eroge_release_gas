@@ -88,6 +88,20 @@ function getAllData(sheetName) {
 }
 
 /**
+ * シート内の全データから声優名が存在しているゲーム
+ * @param {String} [sheetName] - シート名
+ * @return {Array} シート内の全データ（声優名が存在している）
+ */
+function getAllDataExistsVoiceActor(sheetName) {
+  var allData = getAllData(sheetName);
+  var allDataExistsVoiceActor = allData.filter(function(value){
+    return (!value[Columns.ArrayValue(Columns.VoiceActor)] == "");
+  });
+  
+  return allDataExistsVoiceActor;
+}
+
+/**
  * シート内のブランドデータを取得する
  * ref:https://stackoverflow.com/questions/20339466/how-to-remove-duplicates-from-multidimensional-array
  * @param {String} [sheetName] - シート名
@@ -115,12 +129,12 @@ function getBrandData(sheetName) {
 }
 
 /**
- * ブランド単位にデータを分ける
+ * ブランド単位にデータを分ける（声優名が存在しない箇所は除く） 
  * @param {String} [sheetName] - シート名
  * @return {Object} キーがブランド名で分けられたデータ
  */
 function getAllDataByBrand(sheetName) {
-  var allData = getAllData(sheetName);
+  var allData = getAllDataExistsVoiceActor(sheetName);
   var brandData = getBrandData(sheetName);
   
   // キーがブランド名になった連想配列を作成する
@@ -133,4 +147,32 @@ function getAllDataByBrand(sheetName) {
   }
   
   return dataByBrand;
+}
+
+/**
+ * 重複を排除したデータ（声優名があってブランドごと１件分のデータ）
+ * 作成されるデータが完璧ではないので雰囲気で入れるためのものと認識すること
+ * @param {String} [sheetName] - シート名
+ * @return {Array} 重複を排除したデータ
+ */
+function getEliminateDuplicationData(sheetName){
+  var allDataByBrand = getAllDataByBrand(sheetName);
+  var result = [];
+ 
+  Object.keys(allDataByBrand).forEach(function(brandName){
+    if (allDataByBrand[brandName].length === 1) {      // ブランドのデータが１件のもの
+      result.push(allDataByBrand[brandName])
+    } else if (allDataByBrand[brandName].length > 1) { // ブランドのデータが複数件のもの
+      // １ヶ月に複数タイトル出すメーカーはそんなに居ないため一番上のデータのみを対象とする（かなりの妥協 - 雰囲気でデータを入れるようにする）
+      // 声優名のないタイトルはリメイクや特別版などの可能性があるため声優名のないデータでおこなう（まれに声優情報を公開していないものもあるがそれは対象外とする）
+      var title1 = allDataByBrand[brandName][0][Columns.ArrayValue(Columns.Title)];
+      var title2 = allDataByBrand[brandName][1][Columns.ArrayValue(Columns.Title)];
+      var duplicatesTitle = duplicatesString(title1, title2);
+      
+      allDataByBrand[brandName][0][Columns.ArrayValue(Columns.Title)] = duplicatesTitle;
+      result.push(allDataByBrand[brandName][0]);
+    }
+  });
+  
+  return result;
 }

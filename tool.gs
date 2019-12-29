@@ -21,6 +21,10 @@ function duplicatesString(string1, string2) {
 function TestDuplicatesString(){
   var string1 = "あまいろショコラータ げっちゅ屋限定版WスウェードB2タペストリー付＜早期予約キャンペーン特典付き＞　";
   var string2 = "あまいろショコラータ しらたま描き下ろし抱き枕カバー付き限定版 げっちゅ屋限定版WスウェードB2タペストリー付＜早期予約キャンペーン特典付き＞　";
-  
   Logger.log("結果が「あまいろショコラータ」であること：" + duplicatesString(string1, string2));
+  
+  string1 = "あかさたなはまやらわ";
+  string2 = "かきくけこさしすせそ";
+  
+  Logger.log("結果が「」であること：" + duplicatesString(string1, string2));
 }
