@@ -89,6 +89,7 @@ function getAllData(sheetName) {
 
 /**
  * シート内のブランドデータを取得する
+ * ref:https://stackoverflow.com/questions/20339466/how-to-remove-duplicates-from-multidimensional-array
  * @param {String} [sheetName] - シート名
  * @return {Array} ブランドデータ
  */
@@ -111,4 +112,25 @@ function getBrandData(sheetName) {
   }
 
   return brandDataUniques;
+}
+
+/**
+ * ブランド単位にデータを分ける
+ * @param {String} [sheetName] - シート名
+ * @return {Object} キーがブランド名で分けられたデータ
+ */
+function getAllDataByBrand(sheetName) {
+  var allData = getAllData(sheetName);
+  var brandData = getBrandData(sheetName);
+  
+  // キーがブランド名になった連想配列を作成する
+  var dataByBrand = {};
+  for(var i = 0, l = brandData.length; i < l;i++) {
+    var addData = allData.filter(function(data){
+      return brandData[i][0] == data[Columns.ArrayValue(Columns.BrandName)];
+    });
+    dataByBrand[brandData[i][0]] = addData;
+  }
+  
+  return dataByBrand;
 }

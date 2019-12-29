@@ -1,9 +1,9 @@
 // スプレッドシート作成メソッドのデバッグ用
 function debugCreateSpreadSheet() {
   createSpreadSheet("201911", "201911");
-  // createSpreadSheet("201912", "201912");
-  // createSpreadSheet("201912", "201912");
-  // createSpreadSheet("202001", "gorira");
+  createSpreadSheet("201912", "201912");
+  createSpreadSheet("201912", "201912");
+  createSpreadSheet("202001", "gorira");
 }
 
 /**
