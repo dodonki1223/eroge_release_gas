@@ -1,6 +1,6 @@
 // Googleスプレッドシートのカラム用Object
 var Columns = {
-  Id              : 1,
+  ID              : 1,
   ReleaseDate     : 2,
   Title           : 3,
   PackageImage    : 4,
@@ -142,7 +142,7 @@ function getAllDataByBrand(sheetName) {
   var dataByBrand = {};
   for(var i = 0, l = brandData.length; i < l;i++) {
     var addData = allData.filter(function(data){
-      return brandData[i][0] == data[Columns.ArrayValue(Columns.BrandName)];
+      return brandData[i][0] == data[Columns.ArrayValue(Columns.BrandID)];
     });
     dataByBrand[brandData[i][0]] = addData;
   }
@@ -160,18 +160,24 @@ function getEliminateDuplicationData(sheetName){
   var allDataByBrand = getAllDataByBrand(sheetName);
   var result = [];
  
-  Object.keys(allDataByBrand).forEach(function(brandName){
-    if (allDataByBrand[brandName].length === 1) {      // ブランドのデータが１件のもの
-      result.push(allDataByBrand[brandName])
-    } else if (allDataByBrand[brandName].length > 1) { // ブランドのデータが複数件のもの
+  Object.keys(allDataByBrand).forEach(function(brandID){
+    if (allDataByBrand[brandID].length === 1) {      // ブランドのデータが１件のもの
+      result.push(allDataByBrand[brandID][0])
+    } else if (allDataByBrand[brandID].length > 1) { // ブランドのデータが複数件のもの
       // １ヶ月に複数タイトル出すメーカーはそんなに居ないため一番上のデータのみを対象とする（かなりの妥協 - 雰囲気でデータを入れるようにする）
       // 声優名のないタイトルはリメイクや特別版などの可能性があるため声優名のないデータでおこなう（まれに声優情報を公開していないものもあるがそれは対象外とする）
-      var title1 = allDataByBrand[brandName][0][Columns.ArrayValue(Columns.Title)];
-      var title2 = allDataByBrand[brandName][1][Columns.ArrayValue(Columns.Title)];
+      var title1 = allDataByBrand[brandID][0][Columns.ArrayValue(Columns.Title)];
+      var title2 = allDataByBrand[brandID][1][Columns.ArrayValue(Columns.Title)];
       var duplicatesTitle = duplicatesString(title1, title2);
       
-      allDataByBrand[brandName][0][Columns.ArrayValue(Columns.Title)] = duplicatesTitle;
-      result.push(allDataByBrand[brandName][0]);
+      if (duplicatesTitle == "") {
+        // 空文字の場合は比較したものが違うタイトルだった可能性が高いため両方とも追加対応とする
+        result.push(allDataByBrand[brandID][0]);
+        result.push(allDataByBrand[brandID][1]);
+      } else {
+        allDataByBrand[brandID][0][Columns.ArrayValue(Columns.Title)] = duplicatesTitle;
+        result.push(allDataByBrand[brandID][0]);
+      }
     }
   });
   
