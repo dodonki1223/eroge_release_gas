@@ -6,9 +6,10 @@ var Columns = {
   PackageImage    : 4,
   Price           : 5,
   IntroductionPage: 6,
-  BrandName       : 7,
-  BrandPage       : 8,
-  VoiceActor      : 9,
+  BrandID         : 7,
+  BrandName       : 8,
+  BrandPage       : 9,
+  VoiceActor      : 10,
   ArrayValue: function(value) {
     return value -1;
   }
@@ -110,7 +111,7 @@ function getAllDataExistsVoiceActor(sheetName) {
 function getBrandData(sheetName) {
   var sheet = getSheet(sheetName);
 
-  var brandRange = sheet.getRange("G2:H" + sheet.getLastRow());
+  var brandRange = sheet.getRange("G2:I" + sheet.getLastRow());
   var brandData = brandRange.getValues();
   var brandDataUniques = [];  
 
