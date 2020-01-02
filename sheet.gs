@@ -29,3 +29,14 @@ function getAllRows(sheet) {
   return foundRows;
 }
 
+/**
+ * シート新規に作成する
+ * @param {SpreadSheet} [spreadSheet] - SpreadSheetオブジェクト
+ * @return {Sheet} 新しく作成したSheet
+ */
+function createSheet(spreadSheet, sheetName) {
+  var sheet = spreadSheet.insertSheet(0);
+  sheet.setName(sheetName);
+  
+  return sheet;
+}
