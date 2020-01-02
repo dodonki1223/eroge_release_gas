@@ -3,11 +3,9 @@
  * @param {String} [sheetName] - シート名
  * @return {Sheet} Googleスプレッドシートのシートオブジェクト
  */
-function getSheet(SheetName) {
-  var ss    = SpreadsheetApp.getActiveSpreadsheet(),
-      sheet = ss.getSheetByName(SheetName);
-
-  // Logger.log('シート名：' + sheet.getName());
+function getSheet(SheetName, ss) {
+  if (ss === undefined) ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SheetName);
 
   return sheet;
 }
@@ -32,6 +30,7 @@ function getAllRows(sheet) {
 /**
  * シート新規に作成する
  * @param {SpreadSheet} [spreadSheet] - SpreadSheetオブジェクト
+ * @param {String} [sheetName] - シート名
  * @return {Sheet} 新しく作成したSheet
  */
 function createSheet(spreadSheet, sheetName) {

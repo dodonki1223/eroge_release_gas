@@ -26,7 +26,7 @@ var maxColumnsCount = Object.keys(Columns).length;
  */
 function　getRowsByVoiceActor(sheet, voiceActorName) {
   var startRow  = 2,
-      searchRangeArea = 'I' + startRow + ':I' + sheet.getLastRow(),
+      searchRangeArea = 'J' + startRow + ':J' + sheet.getLastRow(),
       range     = sheet.getRange(searchRangeArea),
       foundRows = [];
 
@@ -35,7 +35,7 @@ function　getRowsByVoiceActor(sheet, voiceActorName) {
 
   // 声優名列から対象の声優が出演しているか検索し結果を配列にセット
   for(var row = startRow; row <= searchMaxRow; row++) {
-    cellValue = sheet.getRange("I" + row).getValue();
+    cellValue = sheet.getRange("J" + row).getValue();
     if (cellValue.indexOf(voiceActorName) != -1) 
       foundRows.push(row);
   }
