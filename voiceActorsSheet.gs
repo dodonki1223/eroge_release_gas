@@ -1,3 +1,9 @@
+// voice_actorsシートオブジェクト
+var VoiceActorsSheet = getVoiceActorsSheet("voice_actors");
+
+// voice_actorsシートの最終行
+var VoiceActorsSheetLastRow = getVoiceActorsSheetLastRow();
+
 /**
  * voice_actorsファイルを取得する
  * @return {File} Fileオブジェクト
@@ -27,15 +33,30 @@ function getVoiceActorsSheet(sheetName){
 }
 
 /**
+ * voice_actorsシートの最終行を取得する
+ * ヘッダーは対象に入れないようにするため1だったら2にする
+ * @return {Number} 最終行
+ */
+function getVoiceActorsSheetLastRow() {
+  return VoiceActorsSheet.getLastRow() == 1 ? 2 : VoiceActorsSheet.getLastRow();
+}
+
+
+function getVoiceActorID(voiceActorName) {
+  var voiceActors = VoiceActorsSheet.getRange("A2:B" + VoiceActorsSheetLastRow).getValues();
+  for (i = 0; i < voiceActors.length; i++) {
+    if (voiceActorName != voiceActors[i][1]) continue;
+    return voiceActors[i][0];
+  }
+  return "";
+}
+
+/**
  * voice_actorsスプレッドシート内のシート取得する
  * @return {Spreadsheet} Spreadsheetオブジェクト
  */
 function getVoiceActorsData() {
-  var voiceActorsSheet = getVoiceActorsSheet("voice_actors");
-  // ヘッダーは対象に入れないようにするため1だったら2にする
-  var lastRow = voiceActorsSheet.getLastRow() == 1 ? 2 : voiceActorsSheet.getLastRow();
-  
-  return voiceActorsSheet.getRange("B2:B" + lastRow).getValues();
+  return VoiceActorsSheet.getRange("B2:B" + VoiceActorsSheetLastRow).getValues();
 }
 
 /**
@@ -43,7 +64,6 @@ function getVoiceActorsData() {
  * @param {String} [sheetName] - シート名（eroge_release_botスプレッドシート）
  */
 function writeVoiceActorsInfo(sheetName) {
-  var voiceActorsSheet = getVoiceActorsSheet("voice_actors");
   var existsVoiceActors = getVoiceActorsData().map(function(voiceActor){
     return voiceActor[0];
   });
@@ -57,7 +77,7 @@ function writeVoiceActorsInfo(sheetName) {
     writeVoiceActors[data].forEach(function(voiceActor){
       if (existsVoiceActors.indexOf(voiceActor) == -1) {
         var writeCell = "B" + writeRow;
-        voiceActorsSheet.getRange(writeCell).setValue(voiceActor);
+        VoiceActorsSheet.getRange(writeCell).setValue(voiceActor);
         existsVoiceActors.push(voiceActor);
         writeRow = writeRow + 1;
       }
@@ -66,6 +86,6 @@ function writeVoiceActorsInfo(sheetName) {
   
   // ID列を最終行までコピー
   var copyRange = "A2:A" + (writeRow - 1);
-  voiceActorsSheet.getRange(1, 1).copyTo(voiceActorsSheet.getRange(copyRange));
+  VoiceActorsSheet.getRange(1, 1).copyTo(VoiceActorsSheet.getRange(copyRange));
 }
 
