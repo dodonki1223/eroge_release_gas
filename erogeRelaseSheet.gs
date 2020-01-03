@@ -152,3 +152,20 @@ function getEliminateDuplicationData(sheetName){
   
   return result;
 }
+
+/**
+ * 声優情報（ゲームIDごとに分けた）を取得する
+ * @param {String} [sheetName] - シート名
+ * @return {Object} ゲームIDがキーの声優情報
+ */
+function getVoiceActorsByGameID(sheetName){
+  var eliminateDuplicationDatas = getEliminateDuplicationData(sheetName);
+  var voiceActorsByGameID = {};
+  eliminateDuplicationDatas.forEach(function(eliminateDuplicationData){
+    var gameID = eliminateDuplicationData[Columns.ArrayValue(Columns.ID)];
+    var voiceActors = eliminateDuplicationData[Columns.ArrayValue(Columns.VoiceActor)].split("、");
+    voiceActorsByGameID[gameID] = voiceActors;
+  });
+
+  return voiceActorsByGameID;
+}
