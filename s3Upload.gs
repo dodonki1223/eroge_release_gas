@@ -12,6 +12,13 @@ function createS3UploadFiles(sheetName){
 }
 
 /**
+ * 今月のゲーム情報からS3にアップロードするようのファイルにへの書き込み処理を行う
+ */
+function createS3UploadFilesForThisMonth(){
+  createS3UploadFiles(getNowYearMonth());
+}
+
+/**
  * brandsシートの書き込み処理
  * @param {Spreadsheet} [spreadSheet] - SpreadsheetObject
  * @param {String} [sheetName] - データを取得するシート名

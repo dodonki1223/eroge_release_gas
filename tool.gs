@@ -27,6 +27,16 @@ function amountStringToPrice(amount) {
     return regexp.exec(amount)[1].replace(",", "");
 }
 
+/**
+ * 現在年月の文字列を返す
+ * @return {String} 現在年月文字列
+ */
+function getNowYearMonth(){
+  var nowDate = new Date();
+
+  return "" + nowDate.getFullYear() + nowDate.getMonth() + 1;
+}
+
 // duplicatesStringメソッドのテスト用
 function TestDuplicatesString(){
   var string1 = "あまいろショコラータ げっちゅ屋限定版WスウェードB2タペストリー付＜早期予約キャンペーン特典付き＞　";

@@ -88,3 +88,11 @@ function writeVoiceActorsInfo(sheetName) {
   var copyRange = "A2:A" + (writeRow - 1);
   VoiceActorsSheet.getRange(1, 1).copyTo(VoiceActorsSheet.getRange(copyRange));
 }
+
+/**
+ * 今月のゲーム情報からvoice_actorsシートに声優情報を書き込む
+ * @param {String} [sheetName] - シート名（eroge_release_botスプレッドシート）
+ */
+function writeVoiceActorsInfoByThisMonth() {
+  writeVoiceActorsInfo(getNowYearMonth());
+}
