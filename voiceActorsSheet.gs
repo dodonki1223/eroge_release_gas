@@ -70,7 +70,7 @@ function writeVoiceActorsInfo(sheetName) {
 
   // 書き込み対象の情報を取得する
   var writeVoiceActors = getVoiceActorsByGameID(sheetName);
-  var writeRow = voiceActorsSheet.getLastRow() + 1;
+  var writeRow = VoiceActorsSheet.getLastRow() + 1;
   
   // 存在していない声優情報を書き込む
   Object.keys(writeVoiceActors).forEach(function(data){
@@ -88,4 +88,3 @@ function writeVoiceActorsInfo(sheetName) {
   var copyRange = "A2:A" + (writeRow - 1);
   VoiceActorsSheet.getRange(1, 1).copyTo(VoiceActorsSheet.getRange(copyRange));
 }
-

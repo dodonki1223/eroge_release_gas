@@ -1,4 +1,17 @@
 /**
+ * S3にアップロードするようのファイルにへの書き込み処理を行う
+ * @param {String} [sheetName] - データを取得するシート名
+ */
+function createS3UploadFiles(sheetName){
+  // ブランド・ゲームの出演情報・ゲーム情報を書き込む
+  var createSpreadSheetResult = createSpreadSheet(sheetName, sheetName);
+  var ss = SpreadsheetApp.openById(createSpreadSheetResult["id"]);
+  createBrandsSheet(ss, sheetName);
+  createGameCasts(ss, sheetName);
+  createGamesSheet(ss, sheetName);
+}
+
+/**
  * brandsシートの書き込み処理
  * @param {Spreadsheet} [spreadSheet] - SpreadsheetObject
  * @param {String} [sheetName] - データを取得するシート名
