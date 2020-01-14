@@ -1,3 +1,11 @@
+function test(){
+  // バイナリに変換
+  csv = Utilities.newBlob( '"Uwaaaaa2","Iyaaaaaaaa2"' + "\n" + '"Guoooooo2","Juraaaaaaa2"' );
+ 
+  var s3 = S3.getInstance( Config.AwsAccessKeyID, Config.AwsSecretAccessKey );
+  s3.putObject( 'eroge-release-bot', '202001/test.csv', csv, {logRequests:true} );
+}
+
 /**
  * S3にアップロードするようのファイルにへの書き込み処理を行う
  * @param {String} [sheetName] - データを取得するシート名
