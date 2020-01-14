@@ -10,7 +10,7 @@ var VoiceActorsSheetLastRow = getVoiceActorsSheetLastRow();
  */
 function getVoiceActorsFile() {
   var erogeReleaseBotFolder = getErogeReleaseBotFolder();
-  var files = erogeReleaseBotFolder.searchFiles('title = "voie_actors"');
+  var files = erogeReleaseBotFolder.searchFiles('title = "voice_actors"');
   
   return files.hasNext() ? files.next() : "";
 }
