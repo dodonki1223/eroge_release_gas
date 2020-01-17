@@ -90,19 +90,22 @@ function createGamesSheet(spreadSheet, sheetName) {
   sheet.getRange(1, 2).setValue('タイトル');
   sheet.getRange(1, 3).setValue('ブランドID');
   sheet.getRange(1, 4).setValue('発売日');
-  sheet.getRange(1, 5).setValue('価格');
-  sheet.getRange(1, 6).setValue('ゲーム紹介ページ');
+  sheet.getRange(1, 5).setValue('ゲーム紹介ページ');
   
   var datas = getEliminateDuplicationData(sheetName);
 
   datas.forEach(function(data, index){
     // indexが０始まりなので+1、ヘッダー行より下に書き込むのでさらに+1
     row = index + 1 + 1;  
-    sheet.getRange(row, 1).setValue(data[Columns.ArrayValue(Columns.ID)]);
-    sheet.getRange(row, 2).setValue(data[Columns.ArrayValue(Columns.Title)]);
+
+    // スクレイピングで変な文字列を取得されてしまうため末尾の文字を削除する
+    var title = data[Columns.ArrayValue(Columns.Title)];
+    if (title.slice(-1) == '　') title = title.slice(0, -1);
+   
+    sheet.getRange(row, 1).setValue(data[Columns.ArrayValue(Columns.ID)]); 
+    sheet.getRange(row, 2).setValue(title);
     sheet.getRange(row, 3).setValue(data[Columns.ArrayValue(Columns.BrandID)]);
     sheet.getRange(row, 4).setValue(data[Columns.ArrayValue(Columns.ReleaseDate)]);
-    sheet.getRange(row, 5).setValue(amountStringToPrice(data[Columns.ArrayValue(Columns.Price)]));
-    sheet.getRange(row, 6).setValue(data[Columns.ArrayValue(Columns.IntroductionPage)]);
+    sheet.getRange(row, 5).setValue(data[Columns.ArrayValue(Columns.IntroductionPage)]);
   });
 }
