@@ -1,9 +1,33 @@
 function test(){
-  // バイナリに変換
-  csv = Utilities.newBlob( '"Uwaaaaa2","Iyaaaaaaaa2"' + "\n" + '"Guoooooo2","Juraaaaaaa2"' );
- 
+  createS3UploadFiles('201911');
+  csv = buildCSV('201911', 'games');
   var s3 = S3.getInstance( Config.AwsAccessKeyID, Config.AwsSecretAccessKey );
   s3.putObject( 'eroge-release-bot', '202001/test.csv', csv, {logRequests:true} );
+}
+
+/**
+ * CSV用のデータを作成する
+ * @param {String} [spreadSheetName] - 対象のスプレッドシート名
+ * @param {String} [csvSheetName] - 作成するCSV対象のシート名
+ * @return {Blob} CSV用のBlogオブジェクト
+ */
+function buildCSV(spreadSheetName, csvSheetName){
+  var targetFolder = getFolderForErogeReleaseBot(spreadSheetName);
+  var ss = getSpreadSheetForErogeReleaseBot(targetFolder, spreadSheetName);
+  var sheet = getSheet(csvSheetName, ss);
+  
+  var csvDatas = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).getValues();
+  var csvContent = '';
+  csvDatas.forEach(function(data){
+    for($i = 0; $i < sheet.getLastColumn(); $i++){
+      csvContent += '"' + data[$i] + '",';
+    }
+    // 上の処理で常に末尾にカンマを付加しているので一番最後の末尾だけカンマを削除する
+    csvContent = csvContent.slice(0, -1) + '\n';
+  });
+  
+  // バイナリに変換
+  return Utilities.newBlob(csvContent);
 }
 
 /**
