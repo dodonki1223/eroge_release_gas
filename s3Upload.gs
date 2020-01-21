@@ -1,7 +1,18 @@
 function test(){
-  createS3UploadFiles('201911');
-  csv = buildCSV('201911', 'games');
-  uploadCsvToS3('201911', csv);
+  var targetYearMonth = '201911';
+  createS3UploadFiles(targetYearMonth);
+  
+  var csvGames = buildCSV('201911', 'games');
+  var csvGamesPath = targetYearMonth + '/games.csv';
+  uploadCsvToS3(csvGamesPath ,csvGames);
+  
+  var csvGameCasts = buildCSV('201911', 'game_casts');
+  var csvGameCastsPath = targetYearMonth + '/game_casts.csv';
+  uploadCsvToS3(csvGameCastsPath ,csvGameCasts);
+  
+  var csvBrands = buildCSV('201911', 'brands');
+  var csvBrandsPath = targetYearMonth + '/brands.csv';
+  uploadCsvToS3(csvBrandsPath ,csvBrands);
 }
 
 /**
@@ -31,12 +42,10 @@ function buildCSV(spreadSheetName, csvSheetName){
 
 /**
  * CSVファイルをS3にアップロードする
- * @param {String} [yearMonth] - 対象の年月
- * @param {Blob} [csv] - CSVファイル
- * @return {Blob} CSV用のBlogオブジェクト
+ * @param {String} [filePath] - ファイルパス
+ * @param {Blob} [csv] - CSV用のBlogオブジェクト
  */
-function uploadCsvToS3(yearMonth, csv) {
-  var filePath = yearMonth + '/' + yearMonth + '.csv';
+function uploadCsvToS3(filePath, csv) {
   var s3 = S3.getInstance(Config.AwsAccessKeyID, Config.AwsSecretAccessKey);
 
   result = s3.putObject(Config.AwsS3BucketName, filePath, csv, {logRequests:true});
