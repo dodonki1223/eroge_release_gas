@@ -6,6 +6,7 @@ var prop = PropertiesService.getScriptProperties();
 // SlackWebHookUrl   ：SlackにPostするURL
 // AwsAccessKeyID    ：AWSのアクセスキーID
 // AwsSecretAccessKey：AWSのシークレットアクセスキー
+// AwsS3BucketName   ：AWSのS3のバケット名（ファイルのアップロード先バケット名）
 // ファイル→プロジェクトのプロパティ→スクリプトのプロパティから設定してください
 // 設定される値はすべて文字列になることに注意してください
 var Config = {
@@ -13,7 +14,8 @@ var Config = {
   LinePostUrl        : 'https://api.line.me/v2/bot/message/reply',
   SlackWebHookUrl    : prop.getProperty("SLACK_WEB_HOOK_URL"),
   AwsAccessKeyID     : prop.getProperty("AWS_ACCESS_KEY_ID"),
-  AwsSecretAccessKey : prop.getProperty("AWS_SECRET_ACCESS_KEY")
+  AwsSecretAccessKey : prop.getProperty("AWS_SECRET_ACCESS_KEY"),
+  AwsS3BucketName    : prop.getProperty("AWS_S3_BUCKET_NAME")
 };
 
 
@@ -24,4 +26,5 @@ function TestConfig(){
   Logger.log("SlackWebHookUrl：" + Config.SlackWebHookUrl);
   Logger.log("AwsAccessKeyID：" + Config.AwsAccessKeyID);
   Logger.log("AwsSecretAccessKey：" + Config.AwsSecretAccessKey);
+  Logger.log("AwsS3BucketName：" + Config.AwsS3BucketName);
 }

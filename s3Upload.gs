@@ -1,8 +1,7 @@
 function test(){
   createS3UploadFiles('201911');
   csv = buildCSV('201911', 'games');
-  var s3 = S3.getInstance( Config.AwsAccessKeyID, Config.AwsSecretAccessKey );
-  s3.putObject( 'eroge-release-bot', '202001/test.csv', csv, {logRequests:true} );
+  uploadCsvToS3('201911', csv);
 }
 
 /**
@@ -28,6 +27,20 @@ function buildCSV(spreadSheetName, csvSheetName){
   
   // バイナリに変換
   return Utilities.newBlob(csvContent);
+}
+
+/**
+ * CSVファイルをS3にアップロードする
+ * @param {String} [yearMonth] - 対象の年月
+ * @param {Blob} [csv] - CSVファイル
+ * @return {Blob} CSV用のBlogオブジェクト
+ */
+function uploadCsvToS3(yearMonth, csv) {
+  var filePath = yearMonth + '/' + yearMonth + '.csv';
+  var s3 = S3.getInstance(Config.AwsAccessKeyID, Config.AwsSecretAccessKey);
+
+  result = s3.putObject(Config.AwsS3BucketName, filePath, csv, {logRequests:true});
+  console.info(result);
 }
 
 /**
