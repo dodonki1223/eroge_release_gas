@@ -41,7 +41,12 @@ function getVoiceActorsSheetLastRow() {
   return VoiceActorsSheet.getLastRow() == 1 ? 2 : VoiceActorsSheet.getLastRow();
 }
 
-
+/**
+ * 声優IDの取得
+ * 声優名に一意に割り振られたIDを取得する。取得できなかった時は空文字を返す
+ * @param {String} [voiceActorName] - 声優名
+ * @return {Number} 声優ID
+ */
 function getVoiceActorID(voiceActorName) {
   var voiceActors = VoiceActorsSheet.getRange("A2:B" + VoiceActorsSheetLastRow).getValues();
   for (i = 0; i < voiceActors.length; i++) {
@@ -52,10 +57,10 @@ function getVoiceActorID(voiceActorName) {
 }
 
 /**
- * voice_actorsスプレッドシート内のシート取得する
- * @return {Spreadsheet} Spreadsheetオブジェクト
+ * 声優名を全部取得する
+ * @return {Array} 声優名を格納した配列
  */
-function getVoiceActorsData() {
+function getVoiceActorNames() {
   return VoiceActorsSheet.getRange("B2:B" + VoiceActorsSheetLastRow).getValues();
 }
 
@@ -64,7 +69,7 @@ function getVoiceActorsData() {
  * @param {String} [sheetName] - シート名（eroge_release_botスプレッドシート）
  */
 function writeVoiceActorsInfo(sheetName) {
-  var existsVoiceActors = getVoiceActorsData().map(function(voiceActor){
+  var existsVoiceActors = getVoiceActorNames().map(function(voiceActor){
     return voiceActor[0];
   });
 
