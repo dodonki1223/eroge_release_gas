@@ -1,55 +1,53 @@
 function test(){
-  var targetYearMonth = '201911';
-  createS3UploadFiles(targetYearMonth);
+  var yearMonth = '201911';
+  createS3UploadFiles(yearMonth);
   
-  var csvGames = buildCSV('201911', 'games');
-  var csvGamesPath = targetYearMonth + '/games.csv';
-  uploadCsvToS3(csvGamesPath ,csvGames);
+  var targetFolder = getFolderForErogeReleaseBot(yearMonth);
+  var ss = getSpreadSheetForErogeReleaseBot(targetFolder, yearMonth);
+    
+  var gamesSheet = getSheet('games', ss);
+  var gamesData = gamesSheet.getRange(2, 1, gamesSheet.getLastRow() - 1, gamesSheet.getLastColumn()).getValues();
+  var gamesCsv = buildCSV(gamesData);
+  uploadCsvToS3(buildUploadPath(yearMonth, 'games') ,gamesCsv);
   
-  var csvGameCasts = buildCSV('201911', 'game_casts');
-  var csvGameCastsPath = targetYearMonth + '/game_casts.csv';
-  uploadCsvToS3(csvGameCastsPath ,csvGameCasts);
-  
-  var csvBrands = buildCSV('201911', 'brands');
-  var csvBrandsPath = targetYearMonth + '/brands.csv';
-  uploadCsvToS3(csvBrandsPath ,csvBrands);
+  var gameCastsSheet = getSheet('game_casts', ss);
+  var gameCastsData = gameCastsSheet.getRange(2, 1, gameCastsSheet.getLastRow() - 1, gameCastsSheet.getLastColumn()).getValues();
+  var gameCastsCsv = buildCSV(gameCastsData);
+  uploadCsvToS3(buildUploadPath(yearMonth, 'game_casts'), gameCastsCsv);
+
+  var brandsSheet = getSheet('brands', ss);
+  var brandsData = brandsSheet.getRange(2, 1, brandsSheet.getLastRow() - 1, brandsSheet.getLastColumn()).getValues();
+  var brandsCsv = buildCSV(brandsData);
+  uploadCsvToS3(buildUploadPath(yearMonth, 'brands'), brandsCsv);
 }
 
 /**
- * CSV用のデータを作成する
- * @param {String} [spreadSheetName] - 対象のスプレッドシート名
- * @param {String} [csvSheetName] - 作成するCSV対象のシート名
- * @return {Blob} CSV用のBlogオブジェクト
+ * アップロード用のパスを生成する
+ * @param {String} [yearMonth] - 年月文字列
+ * @param {String} [csvFileName] - csvファイル名
+ * @param {String} - アップロード先パス
  */
-function buildCSV(spreadSheetName, csvSheetName){
-  var targetFolder = getFolderForErogeReleaseBot(spreadSheetName);
-  var ss = getSpreadSheetForErogeReleaseBot(targetFolder, spreadSheetName);
-  var sheet = getSheet(csvSheetName, ss);
-  
-  var csvDatas = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn()).getValues();
-  var csvContent = '';
-  csvDatas.forEach(function(data){
-    for($i = 0; $i < sheet.getLastColumn(); $i++){
-      csvContent += '"' + data[$i] + '",';
-    }
-    // 上の処理で常に末尾にカンマを付加しているので一番最後の末尾だけカンマを削除する
-    csvContent = csvContent.slice(0, -1) + '\n';
-  });
-  
-  // バイナリに変換
-  return Utilities.newBlob(csvContent);
+function buildUploadPath(yearMonth, csvFileName) {
+  return yearMonth + '/' + csvFileName + '.csv';
 }
 
 /**
  * CSVファイルをS3にアップロードする
  * @param {String} [filePath] - ファイルパス
- * @param {Blob} [csv] - CSV用のBlogオブジェクト
+ * @param {Blob} - CSV用のBlogオブジェクト
  */
 function uploadCsvToS3(filePath, csv) {
   var s3 = S3.getInstance(Config.AwsAccessKeyID, Config.AwsSecretAccessKey);
 
   result = s3.putObject(Config.AwsS3BucketName, filePath, csv, {logRequests:true});
   console.info(result);
+}
+
+/**
+ * 今月のゲーム情報からS3にアップロードするようのファイルにへの書き込み処理を行う
+ */
+function createS3UploadFilesForThisMonth(){
+  createS3UploadFiles(getNowYearMonth());
 }
 
 /**
@@ -63,13 +61,6 @@ function createS3UploadFiles(sheetName){
   createBrandsSheet(ss, sheetName);
   createGameCasts(ss, sheetName);
   createGamesSheet(ss, sheetName);
-}
-
-/**
- * 今月のゲーム情報からS3にアップロードするようのファイルにへの書き込み処理を行う
- */
-function createS3UploadFilesForThisMonth(){
-  createS3UploadFiles(getNowYearMonth());
 }
 
 /**

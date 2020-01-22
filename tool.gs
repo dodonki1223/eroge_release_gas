@@ -37,6 +37,25 @@ function getNowYearMonth(){
   return "" + nowDate.getFullYear() + nowDate.getMonth() + 1;
 }
 
+/**
+ * CSV用のデータを作成する
+ * @param {Array} [csvDatas] - CSVに変換するデータ（２次元配列）
+ * @return {Blob} CSV用のBlogオブジェクト
+ */
+function buildCSV(csvDatas){
+  var csvContent = '';
+  csvDatas.forEach(function(data){
+    for($i = 0; $i < data.length; $i++){
+      csvContent += '"' + data[$i] + '",';
+    }
+    // 上の処理で常に末尾にカンマを付加しているので一番最後の末尾だけカンマを削除する
+    csvContent = csvContent.slice(0, -1) + '\n';
+  });
+  
+  // バイナリに変換
+  return Utilities.newBlob(csvContent);
+}
+
 // duplicatesStringメソッドのテスト用
 function TestDuplicatesString(){
   var string1 = "あまいろショコラータ げっちゅ屋限定版WスウェードB2タペストリー付＜早期予約キャンペーン特典付き＞　";
