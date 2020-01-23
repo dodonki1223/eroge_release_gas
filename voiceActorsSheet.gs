@@ -1,8 +1,5 @@
 // voice_actorsシートオブジェクト
-var VoiceActorsSheet = getVoiceActorsSheet("voice_actors");
-
-// voice_actorsシートの最終行
-var VoiceActorsSheetLastRow = getVoiceActorsSheetLastRow();
+var VoiceActorsSheet = getVoiceActorsSheet('voice_actors');
 
 /**
  * voice_actorsファイルを取得する
@@ -12,7 +9,7 @@ function getVoiceActorsFile() {
   var erogeReleaseBotFolder = getErogeReleaseBotFolder();
   var files = erogeReleaseBotFolder.searchFiles('title = "voice_actors"');
   
-  return files.hasNext() ? files.next() : "";
+  return files.hasNext() ? files.next() : '';
 }
 
 /**
@@ -33,22 +30,14 @@ function getVoiceActorsSheet(sheetName){
 }
 
 /**
- * voice_actorsシートの最終行を取得する
- * ヘッダーは対象に入れないようにするため1だったら2にする
- * @return {Number} 最終行
- */
-function getVoiceActorsSheetLastRow() {
-  return VoiceActorsSheet.getLastRow() == 1 ? 2 : VoiceActorsSheet.getLastRow();
-}
-
-/**
  * 声優IDの取得
  * 声優名に一意に割り振られたIDを取得する。取得できなかった時は空文字を返す
  * @param {String} [voiceActorName] - 声優名
  * @return {Number} 声優ID
  */
 function getVoiceActorID(voiceActorName) {
-  var voiceActors = VoiceActorsSheet.getRange("A2:B" + VoiceActorsSheetLastRow).getValues();
+  var lastRow = VoiceActorsSheet.getLastRow() + 1;
+  var voiceActors = VoiceActorsSheet.getRange('A2:B' + lastRow).getValues();
   for (i = 0; i < voiceActors.length; i++) {
     if (voiceActorName != voiceActors[i][1]) continue;
     return voiceActors[i][0];
@@ -61,7 +50,8 @@ function getVoiceActorID(voiceActorName) {
  * @return {Array} 声優名を格納した配列
  */
 function getVoiceActorNames() {
-  return VoiceActorsSheet.getRange("B2:B" + VoiceActorsSheetLastRow).getValues();
+  var lastRow = VoiceActorsSheet.getLastRow() + 1;
+  return VoiceActorsSheet.getRange('B2:B' + lastRow).getValues();
 }
 
 /**
@@ -81,17 +71,15 @@ function writeVoiceActorsInfo(sheetName) {
   Object.keys(writeVoiceActors).forEach(function(data){
     writeVoiceActors[data].forEach(function(voiceActor){
       if (existsVoiceActors.indexOf(voiceActor) == -1) {
-        var writeCell = "B" + writeRow;
-        VoiceActorsSheet.getRange(writeCell).setValue(voiceActor);
+        var idCell = 'A' + writeRow;
+        var nameCell = 'B' + writeRow;
+        VoiceActorsSheet.getRange(nameCell).setValue(voiceActor);
+        VoiceActorsSheet.getRange(idCell).setValue(writeRow - 1);
         existsVoiceActors.push(voiceActor);
         writeRow = writeRow + 1;
       }
     });
   });
-  
-  // ID列を最終行までコピー
-  var copyRange = "A2:A" + (writeRow - 1);
-  VoiceActorsSheet.getRange(1, 1).copyTo(VoiceActorsSheet.getRange(copyRange));
 }
 
 /**
