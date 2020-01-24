@@ -1,20 +1,44 @@
-function test(){
-  var yearMonth = '201911';
+/**
+ * 今月のデータをS3にアップロードする
+ */
+function allUploadThisMonth(){
+  allUpload(getNowYearMonth());
+}
+
+/**
+ * S3にすべての情報をアップロードする
+ * アップロード対象のデータ
+ *   ・声優情報
+ *   ・ゲーム情報
+ *   ・ゲームの出演情報
+ *   ・ブランド情報
+ * @param {String} [yearMonth] - 年月文字列
+ */
+function allUpload(yearMonth){
+  // アップロード用ファイルの作成 
+  writeVoiceActorsInfo(yearMonth);
   createS3UploadFiles(yearMonth);
   
-  var targetFolder = getFolderForErogeReleaseBot(yearMonth);
-  var ss = getSpreadSheetForErogeReleaseBot(targetFolder, yearMonth);
-    
+  // 声優情報をアップロード
+  var voiceActorsData = VoiceActorsSheet.getRange(2, 1, VoiceActorsSheet.getLastRow() - 1, VoiceActorsSheet.getLastColumn()).getValues();
+  var voiceActorsCsv = buildCSV(voiceActorsData);
+  uploadCsvToS3(buildUploadPath(yearMonth, 'voice_actors') ,voiceActorsCsv);  
+
+  var ss = getUploadSpreadSheet(yearMonth);
+
+  // ゲーム情報をアップロード
   var gamesSheet = getSheet('games', ss);
   var gamesData = gamesSheet.getRange(2, 1, gamesSheet.getLastRow() - 1, gamesSheet.getLastColumn()).getValues();
   var gamesCsv = buildCSV(gamesData);
   uploadCsvToS3(buildUploadPath(yearMonth, 'games') ,gamesCsv);
   
+  // ゲームの出演情報をアップロード
   var gameCastsSheet = getSheet('game_casts', ss);
-  var gameCastsData = gameCastsSheet.getRange(2, 1, gameCastsSheet.getLastRow() - 1, gameCastsSheet.getLastColumn()).getValues();
+  var gameCastsData = gameCastsSheet.getRange(2, 1, gameCastsSheet.getLastRow() - 1, 2).getValues();
   var gameCastsCsv = buildCSV(gameCastsData);
   uploadCsvToS3(buildUploadPath(yearMonth, 'game_casts'), gameCastsCsv);
-
+  
+  // ブランド情報をアップロード
   var brandsSheet = getSheet('brands', ss);
   var brandsData = brandsSheet.getRange(2, 1, brandsSheet.getLastRow() - 1, brandsSheet.getLastColumn()).getValues();
   var brandsCsv = buildCSV(brandsData);
@@ -22,10 +46,21 @@ function test(){
 }
 
 /**
+ * アップロード対象のスプレッドシートを取得する
+ * @param {String} [yearMonth] - 年月文字列
+ * @return {Sheet} Googleスプレッドシートのシートオブジェクト
+ */
+function getUploadSpreadSheet(yearMonth){
+  var targetFolder = getFolderForErogeReleaseBot(yearMonth);
+
+  return getSpreadSheetForErogeReleaseBot(targetFolder, yearMonth);
+}
+
+/**
  * アップロード用のパスを生成する
  * @param {String} [yearMonth] - 年月文字列
  * @param {String} [csvFileName] - csvファイル名
- * @param {String} - アップロード先パス
+ * @return {String} アップロード先パス
  */
 function buildUploadPath(yearMonth, csvFileName) {
   return yearMonth + '/' + csvFileName + '.csv';
@@ -41,13 +76,6 @@ function uploadCsvToS3(filePath, csv) {
 
   result = s3.putObject(Config.AwsS3BucketName, filePath, csv, {logRequests:true});
   console.info(result);
-}
-
-/**
- * 今月のゲーム情報からS3にアップロードするようのファイルにへの書き込み処理を行う
- */
-function createS3UploadFilesForThisMonth(){
-  createS3UploadFiles(getNowYearMonth());
 }
 
 /**
