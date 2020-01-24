@@ -42,7 +42,7 @@ function getVoiceActorID(voiceActorName) {
     if (voiceActorName != voiceActors[i][1]) continue;
     return voiceActors[i][0];
   }
-  return "";
+  return '';
 }
 
 /**
@@ -80,12 +80,4 @@ function writeVoiceActorsInfo(sheetName) {
       }
     });
   });
-}
-
-/**
- * 今月のゲーム情報からvoice_actorsシートに声優情報を書き込む
- * @param {String} [sheetName] - シート名（eroge_release_botスプレッドシート）
- */
-function writeVoiceActorsInfoByThisMonth() {
-  writeVoiceActorsInfo(getNowYearMonth());
 }
