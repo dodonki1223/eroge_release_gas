@@ -1,5 +1,5 @@
 /**
- * eroge_release_botフォルダ配下のフォルダ配下に新規でスプレッドシートを作成する
+ * eroge_releaseフォルダ配下のフォルダ配下に新規でスプレッドシートを作成する
  *
  * @param {String} [folderName] - フォルダ名
  * @param {String} [spreadSheetName] - スプレッドシートファイル名
@@ -27,24 +27,24 @@ function createSpreadSheet(folderName, spreadSheetName) {
 }
 
 /**
- * eroge_release_botフォルダを取得する
+ * eroge_releaseフォルダを取得する
  *
- * @return {Folder} eroge_release_botフォルダ
+ * @return {Folder} eroge_releaseフォルダ
  */
 function getErogeReleaseBotFolder() {
   // フォルダは１件のみ取得されることを想定しているコードです
-  var folders = DriveApp.getFoldersByName('eroge_release_bot');
+  var folders = DriveApp.getFoldersByName('eroge_release');
   var erogeReleaseBotFolder = folders.next();
   
   return erogeReleaseBotFolder;
 }
 
 /**
- * eroge_release_botフォルダ配下のフォルダを名前で取得する
+ * eroge_releaseフォルダ配下のフォルダを名前で取得する
  * 取得できなかった場合は空文字を返す
  *
  * @param {String} [folderName] - フォルダ名
- * @return {Folder} eroge_release_botフォルダ配下のフォルダ
+ * @return {Folder} eroge_releaseフォルダ配下のフォルダ
  */
 function getFolderForErogeReleaseBot(folderName) {
   var erogeReleaseBotFolder = getErogeReleaseBotFolder();
@@ -54,7 +54,7 @@ function getFolderForErogeReleaseBot(folderName) {
 }
 
 /**
- * eroge_release_botフォルダ配下にフォルダを作成する
+ * eroge_releaseフォルダ配下にフォルダを作成する
  *
  * @param {String} [folderName] - フォルダ名
  * @return {Folder} 作成したFolder
@@ -67,7 +67,7 @@ function createFolder(folderName) {
 }
 
 /**
- * eroge_release_botフォルダ配下のスプレッドシートをスプレッドシート名で取得する
+ * eroge_releaseフォルダ配下のスプレッドシートをスプレッドシート名で取得する
  * 取得できなかった場合は空文字を返す
  *
  * @param {Folder} [folder] - 検索対象のフォルダオブジェクト
@@ -90,7 +90,7 @@ function TestCreateSpreadSheet() {
   createSpreadSheet("202001", "202001");
 }
 
-// eroge_release_botフォルダ配下のスプレッドシートを取得するメソッドのデバッグ用
+// eroge_releaseフォルダ配下のスプレッドシートを取得するメソッドのデバッグ用
 function TestGetSpreadSheetForErogeReleaseBot(){
   Logger.log('201911のスプレッドシートのID：' + getSpreadSheetForErogeReleaseBot(getFolderForErogeReleaseBot('201911'), '201911').getId());
   Logger.log('201912のスプレッドシートのID：' + getSpreadSheetForErogeReleaseBot(getFolderForErogeReleaseBot('201912'), '201912').getId());

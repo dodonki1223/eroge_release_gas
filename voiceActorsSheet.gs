@@ -56,7 +56,7 @@ function getVoiceActorNames() {
 
 /**
  * voice_actorsシートに声優情報を書き込む
- * @param {String} [sheetName] - シート名（eroge_release_botスプレッドシート）
+ * @param {String} [sheetName] - シート名（eroge_releaseスプレッドシート）
  */
 function writeVoiceActorsInfo(sheetName) {
   var existsVoiceActors = getVoiceActorNames().map(function(voiceActor){
