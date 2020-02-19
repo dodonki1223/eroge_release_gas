@@ -33,8 +33,9 @@ function amountStringToPrice(amount) {
  */
 function getNowYearMonth(){
   var nowDate = new Date();
+  var month = ('0' + (nowDate.getMonth() + 1)).slice(-2);
 
-  return "" + nowDate.getFullYear() + nowDate.getMonth() + 1;
+  return "" + nowDate.getFullYear() + month;
 }
 
 /**
