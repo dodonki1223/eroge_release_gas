@@ -50,11 +50,26 @@ Googleスプレッドシートには以下のような感じで書き込まれ�
 - 先月の 声優名 or リスト
 - 来月の 声優名 or リスト
 
-
 | ![03_voice_actor_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/03_voice_actor_sample.png) | ![04_release_list_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/04_release_list_sample.png) |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 サンプル画像は2019年4月に実行したものになります。
+
+### Slack通知
+
+Slackに発売のリスト情報を定期で通知させます
+
+![05_notify_slack_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/05_notify_slack_sample.png)
+
+### 環境構築
+
+
+
+
+
+
+
+
 
 ## 導入方法
 
