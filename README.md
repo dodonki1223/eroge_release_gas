@@ -6,51 +6,55 @@
 
 主に以下の２つの機能を持ちます
 
-- 声優名で話しかけると出演するゲームを教えてくれる `LINE BOT`
+- 声優名で話しかけると出演するゲームを教えてくれる `LINE BOT` （発売リストくん）
 - 美少女ゲームの情報を格納するデータベースの情報に整形しS3にアップロードする機能
 
-# 発売リストくん 
+## 発売リストくん
 
-## なんのソフト？
+声優名で話しかけると出演するゲームを教えてくれる `LINE BOT` です
 
-声優名で話しかけるとその声優が出演するゲームを教えてくれるLINE BOTです。
+![00_release_list_line_bot](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/00_release_list_line_bot.png)
 
-## 使い方
+### 仕組み
 
-友だち追加ボタンをクリックするかQRコードから友達追加をして下さい。  
+大まかな仕組みを説明します
 
-| <a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a> | ![qr_code.png](image/qr_code.png) |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------:|
+#### 処理の流れ
 
-声優名で話しかけるとその声優が出演するゲームを教えてくれます。  
+1. [eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd)を使用し、[げっちゅ屋](http://www.getchu.com/top.html?gc=gc)の[発売日リスト](http://www.getchu.com/all/price.html?genre=pc_soft&year=2019&month=3&gage=&gall=all)ページをスクレイピングしスクレイピング結果をCSV出力する
+2. 出力されたCSV結果をGoogleスプレッドシートに書き込み
+3. 発売リストくん（LINE BOT）に声優名を入力
+4. Googleスプレッドシートから声優の出演情報を元にゲームの情報を検索
+5. ゲームの情報を発売リストくん（LINE BOT）に返す
 
-![サンプル画像](image/sample_screen.png)
+#### その他
 
-話しかけ方は３パターンあります。  
+Googleスプレッドシートには以下のような感じで書き込まれています  
+データの検索、発売リストくん（LINE BOT）への結果通知は `Google Apps Script` で書かれています
 
-- `声優名`
-- `先月の声優名`
-- `来月の声優名`
+![01_google_spread_sheet_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/01_google_spread_sheet_sample.png)
 
-声優名以外にも「リスト」と話しかけるとゲームの発売リストページを教えてくれます。
+### 登録方法
 
-![リストサンプル画像](image/sample_list_screen.png)
+`友だち追加` ボタンをクリックするか `QRコード` から友達追加をして下さい
 
-話しかけ方は声優名と同じで３パターンあります。  
+| <a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a> | ![02_qr_code](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/02_qr_code.png) |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
 
-- `リスト`
-- `先月のリスト`
-- `来月のリスト`
+### 使用方法
+
+登録した `発売リストくん（LINE BOT）` に `声優名` もしくは `リスト` と話しかけるだけです  
+`声優名` と `リスト` それぞれ話しかけ方は３パターンあります
+
+- 声優名 or リスト
+- 先月の 声優名 or リスト
+- 来月の 声優名 or リスト
+
+
+| ![03_voice_actor_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/03_voice_actor_sample.png) | ![04_release_list_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/04_release_list_sample.png) |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 サンプル画像は2019年4月に実行したものになります。
-
-## 仕組み
-
-![環境図](image/environment.jpg)
-
-[eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd)を使用し、[げっちゅ屋](http://www.getchu.com/top.html?gc=gc)の[発売日リスト](http://www.getchu.com/all/price.html?genre=pc_soft&year=2019&month=3&gage=&gall=all)ページをスクレイピングした結果をGoogleスプレッドシートに書き込み、LINE BOTからの入力をGoogleスプレッドシートで受け取り、受け取った内容を元にGoogleスプレッドシート内を検索し、見つかった内容をLINE BOTに返す。
-
-![Googleスプレッドシート](image/sample_google_spread_sheet.png)
 
 ## 導入方法
 
