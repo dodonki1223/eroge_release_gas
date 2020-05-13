@@ -93,7 +93,6 @@ function createS3UploadFiles(sheetName){
 
 /**
  * brandsシートの書き込み処理
- * TODO：同じブランド情報が書き込まれてしまう問題あり（解決するかどうかはまた別問題）
  * @param {Spreadsheet} [spreadSheet] - SpreadsheetObject
  * @param {String} [sheetName] - データを取得するシート名
  */
@@ -114,6 +113,10 @@ function createBrandsSheet(spreadSheet, sheetName) {
     sheet.getRange(row, 2).setValue(data[Columns.ArrayValue(Columns.BrandName)]);
     sheet.getRange(row, 3).setValue(data[Columns.ArrayValue(Columns.BrandPage)]);
   });
+  
+  // 重複データを削除する
+  var writedDatas = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
+  writedDatas.removeDuplicates();
 }
 
 /**
