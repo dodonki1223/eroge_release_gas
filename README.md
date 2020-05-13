@@ -13,7 +13,7 @@
 
 声優名で話しかけると出演するゲームを教えてくれる `LINE BOT` です
 
-![00_release_list_line_bot](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/00_release_list_line_bot.png)
+![00_release_list_line_bot](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/00_release_list_line_bot.png)
 
 ### 仕組み
 
@@ -32,13 +32,13 @@
 Googleスプレッドシートには以下のような感じで書き込まれています  
 データの検索、発売リストくん（LINE BOT）への結果通知は `Google Apps Script` で書かれています
 
-![01_google_spread_sheet_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/01_google_spread_sheet_sample.png)
+![01_google_spread_sheet_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/01_google_spread_sheet_sample.png)
 
 ### 登録方法
 
 `友だち追加` ボタンをクリックするか `QRコード` から友達追加をして下さい
 
-| <a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a> | ![02_qr_code](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/02_qr_code.png) |
+| <a href="https://line.me/R/ti/p/%40kox6824y"><img height="36" border="0" alt="友だち追加" src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"></a> | ![02_qr_code](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/02_qr_code.png) |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------:|
 
 ### 使用方法
@@ -50,7 +50,7 @@ Googleスプレッドシートには以下のような感じで書き込まれ�
 - 先月の 声優名 or リスト
 - 来月の 声優名 or リスト
 
-| ![03_voice_actor_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/03_voice_actor_sample.png) | ![04_release_list_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/04_release_list_sample.png) |
+| ![03_voice_actor_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/03_voice_actor_sample.png) | ![04_release_list_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/04_release_list_sample.png) |
 |:-------------------------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 サンプル画像は2019年4月に実行したものになります。
@@ -59,7 +59,7 @@ Googleスプレッドシートには以下のような感じで書き込まれ�
 
 Slackに発売のリスト情報を定期で通知させます
 
-![05_notify_slack_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/05_notify_slack_sample.png)
+![05_notify_slack_sample](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/readme/05_notify_slack_sample.png)
 
 ### 環境構築
 

@@ -30,21 +30,21 @@ Googleスプレッドシートの設定方法について説明していきま�
 
 リポジトリとブランチを設定して `↓` ボタンをクリックします
 
-![06_clone_source](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/06_clone_source.png)
+![00_clone_source](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/line_bot_construction/00_clone_source.png)
 
 `pull` をクリックします
 
-![07_clone_source_pull](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/07_clone_source_pull.png)
+![01_clone_source_pull](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/line_bot_construction/01_clone_source_pull.png)
 
 なぜか失敗することもあるので失敗したらもう一度cloneを実行するか画面を再読み込みしてみてください
 
-![08_complete_clone_source](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/08_complete_clone_source.png)
+![02_complete_clone_source](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/line_bot_construction/02_complete_clone_source.png)
 
 #### 環境変数の設定
 
 `ファイルメニュー` の `プロジェクトのプロパティ` をクリックします
 
-![09_project_property](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/09_project_property.png)
+![03_project_property](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/line_bot_construction/03_project_property.png)
 
 `スクリプトのプロパティ` タブを開きます  
 以下の設定を追加してください
@@ -55,6 +55,6 @@ Googleスプレッドシートの設定方法について説明していきま�
 
 最後に `保存` をクリックします
 
-![10_environment_variables](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/10_environment_variables.png)
+![04_environment_variables](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_line_bot/line_bot_construction/04_environment_variables.png)
 
 **以上で 発売リストくん の環境構築は完了です**
