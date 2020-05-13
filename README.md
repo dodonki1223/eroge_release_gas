@@ -70,3 +70,22 @@ Slackに発売のリスト情報を定期で通知させます
 
 - [Messaging APIリファレンス](https://developers.line.biz/ja/reference/messaging-api/)
 - [Google Apps Script ドキュメント](https://developers.google.com/apps-script/guides/services/quotas)
+
+## 美少女ゲーム情報S3アップロード機能
+
+スクレイピングした美少女ゲーム情報を [eroge_release_db](https://github.com/dodonki1223/eroge_release_db) のテーブルデータにあった形に整え、データをS3にアップロードする機能です
+
+![00_release_list_s3_upload](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/00_release_list_s3_upload.png)
+
+### 概要
+
+[eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd) でGoogleスプレッドシートに書き込まれた美少女ゲームの情報を [eroge_release_db](https://github.com/dodonki1223/eroge_release_db) で使用するテーブルの形にデータを変換し、そのテーブルごとのデータをCSVに変換してS3にアップロードします  
+
+- brands（ブランド情報）
+- games（ゲーム情報）
+- game_casts（出演声優ゲーム情報）
+- voice_actors（声優マスタ情報）
+
+[Rails ERD](https://github.com/voormedia/rails-erd)を使用して出力したER図です
+
+![eroge_release_db](https://raw.githubusercontent.com/dodonki1223/eroge_release_db/master/db/erd/eroge_release_db.png)
