@@ -13,7 +13,7 @@ function getVoiceActorsFile() {
 }
 
 /**
- * voice_actorsSpreadSheetを取得する
+ * voice_actorsスプレッドシートを取得する
  * @return {Spreadsheet} Spreadsheetオブジェクト
  */
 function getVoiceActorsSpreadsheet(){

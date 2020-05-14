@@ -164,7 +164,10 @@ function getVoiceActorsByGameID(sheetName){
   eliminateDuplicationDatas.forEach(function(eliminateDuplicationData){
     var gameID = eliminateDuplicationData[Columns.ArrayValue(Columns.ID)];
     var voiceActors = eliminateDuplicationData[Columns.ArrayValue(Columns.VoiceActor)].split("、");
-    voiceActorsByGameID[gameID] = voiceActors;
+    var trimVoiceActors = voiceActors.map(function(voiceActorName){
+      return voiceActorName.replace(/\s+/g, "");
+    })
+    voiceActorsByGameID[gameID] = trimVoiceActors
   });
 
   return voiceActorsByGameID;
