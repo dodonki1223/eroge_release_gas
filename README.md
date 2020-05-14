@@ -86,6 +86,22 @@ Slackに発売のリスト情報を定期で通知させます
 - game_casts（出演声優ゲーム情報）
 - voice_actors（声優マスタ情報）
 
+![eroge_release_db](https://raw.githubusercontent.com/dodonki1223/eroge_release_db/master/db/erd/eroge_release_db.png)
+
 [Rails ERD](https://github.com/voormedia/rails-erd)を使用して出力したER図です
 
-![eroge_release_db](https://raw.githubusercontent.com/dodonki1223/eroge_release_db/master/db/erd/eroge_release_db.png)
+### データについて
+
+[eroge_release_cmd](https://github.com/dodonki1223/eroge_release_cmd) で書き込まれたGoogleスプレッドシートを起点に2つのGoogleスプレッドシートにデータを書き込みます
+
+![01_eroge_release_output_data](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/01_eroge_release_output_data.png)
+
+#### 対象月Googleスプレッドシート
+
+対象月スプレッドシートには対象月のゲームの発売リストを元に作成するものになります  
+シート毎にゲーム情報、出演声優ゲーム情報、ブランド情報と分けれてデータが管理されます
+
+#### 声優マスタGoogleスプレッドシート
+
+声優マスタスプレッドシートには声優名とその声優のIDを管理しています  
+[げっちゅ屋](http://www.getchu.com/top.html?gc=gc) にはゲーム、ブランドに関してはシステム側でIDが振られているが声優にはIDが振られていないため、この声優マスタGoogleスプレッドシートでIDを自動採番して管理する
