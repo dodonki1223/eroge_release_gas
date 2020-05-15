@@ -134,3 +134,12 @@ Googleドライブ上でのフォルダ構成は画像の通りになります
 
 声優マスタGoogleスプレッドシートになります  
 発売リストに書き込まれた声優が一意になるよう管理されています
+
+### フォルダ構成 - S3
+
+S3のフォルダ構成は画像の通りになります  
+アップロードされているCSVファイルは [eroge_release_db](https://github.com/dodonki1223/eroge_release_db) にインポートするデータになります  
+
+| ![05_s3_folder_structure_01](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/05_s3_folder_structure_01.png) | ![06_s3_folder_structure_02](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/06_s3_folder_structure_02.png) | ![07_s3_folder_structure_03](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/07_s3_folder_structure_03.png) |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| フォルダのTOPです                                                                                                                                                             | 年月ごとのフォルダが作成されます                                                                                                                                              |  brands.csv（ブランド情報）、game_casts.csv（出演声優ゲーム情報）、games.csv（ゲーム情報）、voice_actors.csv（声優マスタ情報）                                                |
