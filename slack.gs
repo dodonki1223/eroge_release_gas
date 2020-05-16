@@ -12,7 +12,7 @@ function releaseListSendMessage() {
       foundRows = getAllRows(sheet);
 
   // ゲーム情報を元にblocksを作成する
-  var blocks = buildBlocks(sheet, foundRows, message);
+  var blocks = buildReleaseListBlocks(sheet, foundRows, message);
 
   // Slackにメッセージを送信する
   // var gameSectionCount = 3,
@@ -20,7 +20,7 @@ function releaseListSendMessage() {
   var gameSectionCount = 2,
       sendCount        = 25;
       additionValue    = gameSectionCount * sendCount;
-  var releaseListTitle = buildTitleSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
+  var releaseListTitle = buildSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
   sendMessage(message, [releaseListTitle]);
   for($i = 0; $i < blocks.length; $i = $i + additionValue){
     // １回に送信できるsectionの数が５０までのため複数回に分けて送信する
@@ -49,11 +49,11 @@ function buildLinkText(text, url) {
 }
 
 /**
- * Blocksのタイトル用Secionを作成する
+ * Secionを作成する
  * @param {String} [text] - テキスト
- * @return {object} タイトル用Sectionオブジェクト
+ * @return {object} Sectionオブジェクト
  */
-function buildTitleSection(text) {
+function buildSection(text) {
   return {
     "type": "section",
     "text": {
@@ -95,12 +95,12 @@ function buildImageSection(url, altText) {
 }
 
 /**
- * Blocksを作成する
+ * 発売リスト通知用のBlocksを作成する
  * @param {Sheet} [sheet] - シートObject
  * @param {Array} [rows] - 対象のデータ行配列
  * @return {object} Blocksオブジェクト
  */
-function buildBlocks(sheet, rows) {
+function buildReleaseListBlocks(sheet, rows) {
   // 対象のデータを全て取得する
   var rowsCount = rows[rows.length - 1] - 1,
       values    = sheet.getRange(2, 1, rowsCount, maxColumnsCount).getValues()
@@ -118,12 +118,12 @@ function buildBlocks(sheet, rows) {
     var titleText = buildBoldText(buildLinkText(title, introductionPage)) + 
                     ' (' + buildBoldText(buildLinkText(brandName, barandPage)) + ')';
     var gameInfoText = releaseDate + '\n' + price + '\n' + voiceActors;
-    blocks.push(buildTitleSection(titleText));
+    blocks.push(buildSection(titleText));
     blocks.push(buildGameInfoSection(gameInfoText));
     // リファラーがげっちゅ屋でないと「Forbidden」になるように設定されているっぽいので
     // 直リンクができないようになったので画像のリンクを貼る処理はなくす
     // blocks.push(buildImageSection(packageImage, title));
-    // blocks.push(buildTitleSection(packageImage));
+    // blocks.push(buildSection(packageImage));
   });
   return blocks;
 }
