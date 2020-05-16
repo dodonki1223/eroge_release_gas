@@ -21,11 +21,11 @@ function releaseListSendMessage() {
       sendCount        = 25;
       additionValue    = gameSectionCount * sendCount;
   var releaseListTitle = buildSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
-  sendMessage([releaseListTitle]);
+  sendMessage(Config.SlackReleaseListWebHookUrl ,[releaseListTitle]);
   for($i = 0; $i < blocks.length; $i = $i + additionValue){
     // １回に送信できるsectionの数が５０までのため複数回に分けて送信する
     // https://api.slack.com/reference/messaging/blocks
-    sendMessage(blocks.slice($i, $i + additionValue));
+    sendMessage(Config.SlackReleaseListWebHookUrl ,blocks.slice($i, $i + additionValue));
   }
 }
 
@@ -41,7 +41,7 @@ function notifyCompleteS3Upload(yearMonth) {
   var s3Text                      = buildLinkText('・S3', 'https://console.aws.amazon.com/s3/buckets/' + Config.AwsS3BucketName + '/' + yearMonth + '/');
   
   var blocks = [buildSection(title + ' \n\n ' + voiceActorsMstText + ' \n ' + otherThanVoiceActorsMstText + ' \n ' + s3Text)];
-  sendMessage(blocks);
+  sendMessage(Config.SlackS3UploadCompleteWebHookUrl ,blocks);
 }
 
 /**
@@ -145,9 +145,10 @@ function buildReleaseListBlocks(sheet, rows) {
 
 /**
  * Slackのチャンネルにメッセージを送信する
+ * @param {String} [slackwebHookUrl] - SlackのWebHookURL
  * @param {Array} [blocks] - blocksオブジェクト
  */
-function sendMessage(blocks) {
+function sendMessage(slackwebHookUrl, blocks) {
   var payload = {
     blocks: blocks,
   };
@@ -160,6 +161,6 @@ function sendMessage(blocks) {
   };
   
   // Slackにメッセージを送信
-  var response = UrlFetchApp.fetch(Config.SlackWebHookUrl, option);
+  var response = UrlFetchApp.fetch(slackwebHookUrl, option);
   Logger.log(response);
 }
