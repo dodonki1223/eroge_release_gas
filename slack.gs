@@ -1,5 +1,5 @@
 /**
- * 発売リスト一覧のメッセージをSlackに送信する
+ * 発売リスト一覧のメッセージをSlackに通知する
  */
 function releaseListSendMessage() {
   // メッセージを作成する
@@ -12,7 +12,7 @@ function releaseListSendMessage() {
       foundRows = getAllRows(sheet);
 
   // ゲーム情報を元にblocksを作成する
-  var blocks = buildBlocks(sheet, foundRows, message);
+  var blocks = buildReleaseListBlocks(sheet, foundRows, message);
 
   // Slackにメッセージを送信する
   // var gameSectionCount = 3,
@@ -20,13 +20,28 @@ function releaseListSendMessage() {
   var gameSectionCount = 2,
       sendCount        = 25;
       additionValue    = gameSectionCount * sendCount;
-  var releaseListTitle = buildTitleSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
-  sendMessage(message, [releaseListTitle]);
+  var releaseListTitle = buildSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
+  sendMessage(Config.SlackReleaseListWebHookUrl ,[releaseListTitle]);
   for($i = 0; $i < blocks.length; $i = $i + additionValue){
     // １回に送信できるsectionの数が５０までのため複数回に分けて送信する
     // https://api.slack.com/reference/messaging/blocks
-    sendMessage(message, blocks.slice($i, $i + additionValue));
+    sendMessage(Config.SlackReleaseListWebHookUrl ,blocks.slice($i, $i + additionValue));
   }
+}
+
+/**
+ * S3へのアップロード完了メッセージをSlackに通知する
+ * @param {String} [yearMonth] - 年月
+ */
+function notifyCompleteS3Upload(yearMonth) {
+  var yearMonthText               = yearMonth.slice(0,4) + '年' + yearMonth.slice(4) + '月';
+  var title                       = buildBoldText(yearMonthText + 'のデータをS3にアップロードが完了しました') + ' :sparkles:';
+  var voiceActorsMstText          = buildLinkText('・Googleドライブ - 声優マスタ', getVoiceActorsSpreadsheet().getUrl());
+  var otherThanVoiceActorsMstText = buildLinkText('・Googleドライブ - 声優マスタ以外', getUploadSpreadSheet(yearMonth).getUrl());
+  var s3Text                      = buildLinkText('・S3', 'https://console.aws.amazon.com/s3/buckets/' + Config.AwsS3BucketName + '/' + yearMonth + '/');
+  
+  var blocks = [buildSection(title + ' \n\n ' + voiceActorsMstText + ' \n ' + otherThanVoiceActorsMstText + ' \n ' + s3Text)];
+  sendMessage(Config.SlackS3UploadCompleteWebHookUrl ,blocks);
 }
 
 /**
@@ -49,11 +64,11 @@ function buildLinkText(text, url) {
 }
 
 /**
- * Blocksのタイトル用Secionを作成する
+ * Secionを作成する
  * @param {String} [text] - テキスト
- * @return {object} タイトル用Sectionオブジェクト
+ * @return {object} Sectionオブジェクト
  */
-function buildTitleSection(text) {
+function buildSection(text) {
   return {
     "type": "section",
     "text": {
@@ -95,12 +110,12 @@ function buildImageSection(url, altText) {
 }
 
 /**
- * Blocksを作成する
+ * 発売リスト通知用のBlocksを作成する
  * @param {Sheet} [sheet] - シートObject
  * @param {Array} [rows] - 対象のデータ行配列
  * @return {object} Blocksオブジェクト
  */
-function buildBlocks(sheet, rows) {
+function buildReleaseListBlocks(sheet, rows) {
   // 対象のデータを全て取得する
   var rowsCount = rows[rows.length - 1] - 1,
       values    = sheet.getRange(2, 1, rowsCount, maxColumnsCount).getValues()
@@ -118,24 +133,23 @@ function buildBlocks(sheet, rows) {
     var titleText = buildBoldText(buildLinkText(title, introductionPage)) + 
                     ' (' + buildBoldText(buildLinkText(brandName, barandPage)) + ')';
     var gameInfoText = releaseDate + '\n' + price + '\n' + voiceActors;
-    blocks.push(buildTitleSection(titleText));
+    blocks.push(buildSection(titleText));
     blocks.push(buildGameInfoSection(gameInfoText));
     // リファラーがげっちゅ屋でないと「Forbidden」になるように設定されているっぽいので
     // 直リンクができないようになったので画像のリンクを貼る処理はなくす
     // blocks.push(buildImageSection(packageImage, title));
-    // blocks.push(buildTitleSection(packageImage));
+    // blocks.push(buildSection(packageImage));
   });
   return blocks;
 }
 
 /**
  * Slackのチャンネルにメッセージを送信する
- * @param {String} [message] - Slackに表示するメッセージ
- * @param {Array} [attachements] - コンテンツやメッセージリンクリスト
+ * @param {String} [slackwebHookUrl] - SlackのWebHookURL
+ * @param {Array} [blocks] - blocksオブジェクト
  */
-function sendMessage(message, blocks) {
+function sendMessage(slackwebHookUrl, blocks) {
   var payload = {
-    text: message,
     blocks: blocks,
   };
 
@@ -147,6 +161,6 @@ function sendMessage(message, blocks) {
   };
   
   // Slackにメッセージを送信
-  var response = UrlFetchApp.fetch(Config.SlackWebHookUrl, option);
+  var response = UrlFetchApp.fetch(slackwebHookUrl, option);
   Logger.log(response);
 }

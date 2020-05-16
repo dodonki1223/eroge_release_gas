@@ -43,6 +43,9 @@ function allUpload(yearMonth){
   var brandsData = brandsSheet.getRange(2, 1, brandsSheet.getLastRow() - 1, brandsSheet.getLastColumn()).getValues();
   var brandsCsv = buildCSV(brandsData);
   uploadCsvToS3(buildUploadPath(yearMonth, 'brands'), brandsCsv);
+
+  // S3アップロード完了通知をSlackに通知させる
+  notifyCompleteS3Upload(yearMonth);
 }
 
 /**
