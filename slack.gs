@@ -1,5 +1,5 @@
 /**
- * 発売リスト一覧のメッセージをSlackに送信する
+ * 発売リスト一覧のメッセージをSlackに通知する
  */
 function releaseListSendMessage() {
   // メッセージを作成する
@@ -27,6 +27,21 @@ function releaseListSendMessage() {
     // https://api.slack.com/reference/messaging/blocks
     sendMessage(blocks.slice($i, $i + additionValue));
   }
+}
+
+/**
+ * S3へのアップロード完了メッセージをSlackに通知する
+ * @param {String} [yearMonth] - 年月
+ */
+function notifyCompleteS3Upload(yearMonth) {
+  var yearMonthText               = yearMonth.slice(0,4) + '年' + yearMonth.slice(4) + '月';
+  var title                       = buildBoldText(yearMonthText + 'のデータをS3にアップロードが完了しました') + ' :sparkles:';
+  var voiceActorsMstText          = buildLinkText('・Googleドライブ - 声優マスタ', getVoiceActorsSpreadsheet().getUrl());
+  var otherThanVoiceActorsMstText = buildLinkText('・Googleドライブ - 声優マスタ以外', getUploadSpreadSheet(yearMonth).getUrl());
+  var s3Text                      = buildLinkText('・S3', 'https://console.aws.amazon.com/s3/buckets/' + Config.AwsS3BucketName + '/' + yearMonth + '/');
+  
+  var blocks = [buildSection(title + ' \n\n ' + voiceActorsMstText + ' \n ' + otherThanVoiceActorsMstText + ' \n ' + s3Text)];
+  sendMessage(blocks);
 }
 
 /**
