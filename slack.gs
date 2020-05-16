@@ -21,11 +21,11 @@ function releaseListSendMessage() {
       sendCount        = 25;
       additionValue    = gameSectionCount * sendCount;
   var releaseListTitle = buildSection(buildBoldText(buildLinkText(message, buildListPageUrl(year, month)))); 
-  sendMessage(message, [releaseListTitle]);
+  sendMessage([releaseListTitle]);
   for($i = 0; $i < blocks.length; $i = $i + additionValue){
     // １回に送信できるsectionの数が５０までのため複数回に分けて送信する
     // https://api.slack.com/reference/messaging/blocks
-    sendMessage(message, blocks.slice($i, $i + additionValue));
+    sendMessage(blocks.slice($i, $i + additionValue));
   }
 }
 
@@ -130,12 +130,10 @@ function buildReleaseListBlocks(sheet, rows) {
 
 /**
  * Slackのチャンネルにメッセージを送信する
- * @param {String} [message] - Slackに表示するメッセージ
- * @param {Array} [attachements] - コンテンツやメッセージリンクリスト
+ * @param {Array} [blocks] - blocksオブジェクト
  */
-function sendMessage(message, blocks) {
+function sendMessage(blocks) {
   var payload = {
-    text: message,
     blocks: blocks,
   };
 
