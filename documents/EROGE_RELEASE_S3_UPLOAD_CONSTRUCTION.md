@@ -32,3 +32,38 @@ S3へのアップロードはこのライブラリを使用して実装してい
 最後に `保存` をクリックします
 
 ![03_add_alibrary_save](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/03_add_alibrary_save.png)
+
+## Amazon S3にバケットを作成する
+
+S3にアップロードするためにアップロード先のバケットを作成します
+
+### バケット作成画面を開く
+
+`バケット作成` をクリックします
+
+![04_create_bucket_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/04_create_bucket_open.png)
+
+### 一般的な設定
+
+`バケット名` には任意の名前を入力し `リージョン` の設定を追加します
+
+![05_create_bucket_general_setting](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/05_create_bucket_general_setting.png)
+
+### ブロックパブリックアクセスのバケット設定
+
+今回の用途ではパブリックアクセスさせる必要はないのでデフォルトのままで大丈夫です
+
+![06_create_bucket_public_access](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/06_create_bucket_public_access.png)
+
+### 詳細設定
+
+今回の用途ではバージョニングの必要は無いのでデフォルトのままで大丈夫です  
+最後に `バケットを作成` をクリックします
+
+![07_create_bucket_detail_setting](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/07_create_bucket_detail_setting.png)
+
+### 作成完了
+
+無事、作成されたことを確認できます
+
+![08_create_bucket_created](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/08_create_bucket_created.png)
