@@ -179,3 +179,15 @@ GoogleスプレッドシートからS3へアップロードするだけの権限
 アクセス権限に先程作成したポリシーがアタッチされて入れば IAM ユーザーの作成完了です
 
 ![20_create_iam_user_attached_policy](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/20_create_iam_user_attached_policy.png)
+
+## 環境変数を設定する
+
+`プロジェクトのプロパティ` から `スクリプトのプロパティ` タブを開き以下の環境変数を設定します  
+
+| 環境変数名            | 説明                                  |
+|:----------------------|:--------------------------------------|
+| AWS_ACCESS_KEY_ID     | IAMユーザーのアクセスキー             |
+| AWS_SECRET_ACCESS_KEY | IAMユーザーのシークレットアクセスキー |
+| AWS_S3_BUCKET_NAME    | アップロード先のS3のバケット名        |
+
+![21_set_environment_values](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/21_set_environment_values.png)
