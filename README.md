@@ -2,6 +2,8 @@
 
 スクレイピングした美少女ゲーム情報が書き込まれたGoogleスプレッドシートツールです
 
+**注意：「Chrome V8 を搭載した新しい Apps Script ランタイム」の設定を有効にすると正しくスクリプトが動作しなくなります。無効にしておいてください！**
+
 ## 概要
 
 主に以下の２つの機能を持ちます
@@ -143,3 +145,7 @@ S3のフォルダ構成は画像の通りになります
 | ![05_s3_folder_structure_01](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/05_s3_folder_structure_01.png) | ![06_s3_folder_structure_02](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/06_s3_folder_structure_02.png) | ![07_s3_folder_structure_03](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/readme/07_s3_folder_structure_03.png) |
 |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | フォルダのTOPです                                                                                                                                                             | 年月ごとのフォルダが作成されます                                                                                                                                              |  brands.csv（ブランド情報）、game_casts.csv（出演声優ゲーム情報）、games.csv（ゲーム情報）、voice_actors.csv（声優マスタ情報）                                                |
+
+### 環境構築
+
+- [美少女ゲーム情報S3アップロード機能構築手順書](https://github.com/dodonki1223/eroge_release_gas/blob/master/documents/EROGE_RELEASE_S3_UPLOAD_CONSTRUCTION.md)
