@@ -21,7 +21,7 @@ S3へのアップロードはこのライブラリを使用して実装してい
 ![00_add_library_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/00_add_library_open.png)
 
 `Add a library` に `MB4837UymyETXyn8cv3fNXZc9ncYTrHL9` を入力し `追加` ボタンをクリックします  
-**`MB4837UymyETXyn8cv3fNXZc9ncYTrHL9` についてははsドキュメントの `Installation` に書かれています**
+**`MB4837UymyETXyn8cv3fNXZc9ncYTrHL9` についてはドキュメントの `Installation` に書かれています**
 
 ![01_add_library_input_script_id](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/01_add_library_input_script_id.png)
 
@@ -67,3 +67,47 @@ S3にアップロードするためにアップロード先のバケットを作
 無事、作成されたことを確認できます
 
 ![08_create_bucket_created](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/08_create_bucket_created.png)
+
+## S3にアップロードするための IAM ユーザーを作成する
+
+S3にファイルをアップロードするための IAM ユーザーを作成します  
+作成する IAM ユーザーには最小限の権限を与え、アップロードしか出来ないようにします
+
+### IAM ポリシーの作成
+
+IAM ユーザーに付与する IAM ポリシーをまずは作成します  
+`ポリシーの作成` ボタンをクリックします
+
+![09_create_iam_policy_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/09_create_iam_policy_open.png)
+
+`JSON` をクリックし以下の内容のものをエディタ内に貼り付けて下さい  
+最後に `ポリシーの確認` をクリックします  
+
+それぞれの項目については下記のドキュメントを参照してください 
+
+- [IAM JSON ポリシーエレメントのリファレンス - AWS Identity and Access Management](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_elements.html)
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ErogeReleaseOnlyPutObject",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::バケット名/*"
+        }
+    ]
+```
+
+![10_create_iam_policy_input_json](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/10_create_iam_policy_input_json.png)
+
+`名前`、`説明` を入力し `ポリシーの作成` をクリックします
+
+![11_create_iam_policy_name](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/11_create_iam_policy_name.png)
+
+無事、IAM ポリシーが作成されました
+
+![12_create_iam_policy_created](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/12_create_iam_policy_created.png)
