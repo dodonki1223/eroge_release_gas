@@ -287,3 +287,28 @@ S3にアップロード後にSlack通知させるために設定を行います
 
 ![38_run_s3_upload_s3](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/38_run_s3_upload_s3.png)
 
+## 自動実行されるようにトリガーを追加
+
+`編集` メニューの `現在のプロジェクトのトリガー` をクリックします
+
+![39_add_trigger_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/39_add_trigger_open.png)
+
+右下の `トリガーを追加` をクリックします
+
+![40_add_trigger](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/40_add_trigger.png)
+
+画面の設定だと 毎週金曜日の18時〜19時の間に定期実行する設定になっています  
+
+`実行する関数を選択` には `allUploadThisMonth` を選択  
+`イベントのソースを選択` には `時間主導型` を選択  
+`時間ベースのトリガーのタイプを選択`、`曜日を選択`、`時刻を選択`、`エラー通知設定` に関してはお好みで設定します  
+
+最後に `保存` をクリックします
+
+![41_add_trigger_edit](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/41_add_trigger_edit.png)
+
+トリガーが追加されていれば完了です
+
+![42_add_trigger_added](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/42_add_trigger_added.png)
+
+**以上で 美少女ゲーム情報S3アップロード機能 の環境構築は完了です**
