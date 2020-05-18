@@ -238,3 +238,52 @@ S3にアップロード後にSlack通知させるために設定を行います
 以下のように設定できていれば大丈夫です
 
 ![29_set_environment_values](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/29_set_environment_values.png)
+
+## 手動実行し結果を確認する
+
+環境が整ったで実際に実行して `Slackに通知が来る` ことと `S3にファイルがアップロードされていること` の確認をします  
+
+### allUploadThisMonthメソッドの実行
+
+関数を選択から `s3Upload.gs` ファイルの `allUploadThisMonth` を選択します
+
+![30_run_s3_upload_set_method](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/30_run_s3_upload_set_method.png)
+
+▶ボタンをクリックし関数の実行を行います
+
+![31_run_s3_upload_run_button](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/31_run_s3_upload_run_button.png)
+
+下記表示が消えるまで待ちます
+
+![32_run_s3_upload_running](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/32_run_s3_upload_running.png)
+
+### Slack通知
+
+実行が完了したらSlackに下記通知が来ていれば問題ないです
+
+![33_run_s3_upload_notify_slack](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/33_run_s3_upload_notify_slack.png)
+
+### 成果物の確認
+
+実際に出来上がったものを確認します
+
+#### voice_actors
+
+![34_run_s3_upload_voice_actors](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/34_run_s3_upload_voice_actors.png)
+
+#### games
+
+![35_run_s3_upload_games](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/35_run_s3_upload_games.png)
+
+#### game_casts
+
+![36_run_s3_upload_game_casts](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/36_run_s3_upload_game_casts.png)
+
+#### brands
+
+![37_run_s3_upload_brands](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/37_run_s3_upload_brands.png)
+
+#### s3
+
+![38_run_s3_upload_s3](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/38_run_s3_upload_s3.png)
+
