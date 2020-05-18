@@ -76,9 +76,14 @@ S3にファイルをアップロードするための IAM ユーザーを作成�
 ### IAM ポリシーの作成
 
 IAM ユーザーに付与する IAM ポリシーをまずは作成します  
+
+#### ポリシー作成画面を開く
+
 `ポリシーの作成` ボタンをクリックします
 
 ![09_create_iam_policy_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/09_create_iam_policy_open.png)
+
+#### JSON
 
 `JSON` をクリックし以下の内容のものをエディタ内に貼り付けて下さい  
 最後に `ポリシーの確認` をクリックします  
@@ -104,10 +109,73 @@ IAM ユーザーに付与する IAM ポリシーをまずは作成します
 
 ![10_create_iam_policy_input_json](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/10_create_iam_policy_input_json.png)
 
+#### ポリシーの確認
+
 `名前`、`説明` を入力し `ポリシーの作成` をクリックします
 
 ![11_create_iam_policy_name](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/11_create_iam_policy_name.png)
 
+#### 作成後
+
 無事、IAM ポリシーが作成されました
 
 ![12_create_iam_policy_created](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/12_create_iam_policy_created.png)
+
+### IAM ユーザーを作成する
+
+IAM ユーザーを作成していきます
+
+#### ユーザー追加画面を開く
+
+`ユーザーを追加` ボタンをクリックします
+
+![13_create_iam_user_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/13_create_iam_user_open.png)
+
+#### ユーザー詳細の設定
+
+`ユーザー名` を入力します  
+GoogleスプレッドシートからS3へアップロードするだけの権限なのでコンソールへのアクセスは必要ありません  
+`プログラムによるアクセス` のみにチェックをし `次のステップ:アクセス権限` をクリックします
+
+![14_create_iam_user_detail](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/14_create_iam_user_detail.png)
+
+#### アクセス許可の設定
+
+`既存のポリシーを直接アタッチ` から先程作成したポリシーを選択し、 `次のステップ:タグ` をクリックします
+
+![15_create_iam_user_attach_policy](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/15_create_iam_user_attach_policy.png)
+
+`アクセス権限の境界の設定` は今回は使用しません  
+詳しくは以下の記事が参考になります
+
+- [Permissions Boundaryによる利用者へのIAM権限移譲と権限昇格の防止 - Qiita](https://qiita.com/f-daiki/items/e435159db6bde4d0c0ec)
+
+#### タグの追加（オプション）
+
+`キー`、 `値` を入力しタグ情報を追加し `次のステップ:確認` をクリックします
+
+![16_create_iam_user_add_tags](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/16_create_iam_user_add_tags.png)
+
+#### 確認
+
+設定した内容が表示されていることを確認し `ユーザーの作成` をクリックします
+
+![17_create_iam_user_confirm](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/17_create_iam_user_confirm.png)
+
+#### アクセスキー、シークレットアクセスキー
+
+`.csvのダウンロード` をクリックし `アクセスキー`、`シークレットアクセスキー` 情報をダウンロードします  
+**Googleスプレッドシートの設定で使用します**
+
+![18_create_iam_user_download_csv](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/18_create_iam_user_download_csv.png)
+
+#### 作成後
+
+ユーザー一覽画面に作成したユーザーが表示されています  
+ユーザー名をクリックします
+
+![19_create_iam_user_created](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/19_create_iam_user_created.png)
+
+アクセス権限に先程作成したポリシーがアタッチされて入れば IAM ユーザーの作成完了です
+
+![20_create_iam_user_attached_policy](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/20_create_iam_user_attached_policy.png)
