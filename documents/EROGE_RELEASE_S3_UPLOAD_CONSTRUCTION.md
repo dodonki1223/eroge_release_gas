@@ -191,3 +191,14 @@ GoogleスプレッドシートからS3へアップロードするだけの権限
 | AWS_S3_BUCKET_NAME    | アップロード先のS3のバケット名        |
 
 ![21_set_environment_values](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/21_set_environment_values.png)
+
+## Drive API を有効化する
+
+スプレッドシートの作成やフォルダの作成のために [Drive API](https://developers.google.com/apps-script/advanced/drive) を使用しています  
+Google拡張サービスから [Drive API](https://developers.google.com/apps-script/advanced/drive) を有効化させます
+
+![22_enable_drive_api_open](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/22_enable_drive_api_open.png)
+
+無効から `ON` にし最後に `OK` をクリックします
+
+![23_enable_drive_api](https://raw.githubusercontent.com/dodonki1223/image_garage/master/eroge_release_gas/release_list_s3_upload/s3_upload_construction/23_enable_drive_api.png)
